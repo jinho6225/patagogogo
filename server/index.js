@@ -25,6 +25,21 @@ app.get('/api/products', (req, res, next) => {
     .then(result => res.json(result.rows));
 });
 
+app.get('/api/products/:productId', (req, res, next) => {
+  const { productId } = req.params;
+  const sql = 'select * from products where "productId" = $1;';
+  const params = [productId];
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        next();
+      } else {
+        res.json(result.rows[0]);
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
