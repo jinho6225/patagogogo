@@ -9,3 +9,7 @@
   height: 45vh;
   object-fit: scale-down;
 }
+
+.pointer {
+  cursor: pointer;
+}

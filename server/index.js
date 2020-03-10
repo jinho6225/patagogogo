@@ -40,6 +40,61 @@ app.get('/api/products/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/cart', (req, res, next) => {
+  const sql = 'select * from carts';
+  db.query(sql)
+    .then(result => res.json(result.rows));
+});
+
+app.post('/api/cart', (req, res, next) => {
+  const { productId } = req.body;
+  if (Number(productId) <= 0) {
+    return res.status(400).json({
+      error: 'productId must be a positive integer'
+    });
+  }
+  const id = [productId];
+  db.query('select "price" from "products" where "productId" = $1', id)
+    .then(result1 => {
+      if (result1.rows.length === 0) {
+        throw new ClientError('bad request', 400);
+      } else {
+        return db.query('insert into "carts" ("cartId", "createdAt") values (default, default) returning "cartId"')
+          .then(result2 => {
+            const obj = {};
+            obj.price = Number((result1.rows[0].price / 100).toFixed(2));
+            obj.cartId = result2.rows[0].cartId;
+            return (obj);
+          });
+      }
+    })
+    .then(result => {
+      req.session = {
+        cartId: result.cartId
+      };
+      const sql = 'insert into "cartItems" ("cartId", "productId", "price") values ($1, $2, $3) returning "cartItemId"';
+      const params = [result.cartId, req.body.productId, result.price];
+      return db.query(sql, params);
+    })
+    .then(result => {
+      const sql = `
+        select "c"."cartItemId",
+        "c"."price",
+        "p"."productId",
+        "p"."image",
+        "p"."name",
+        "p"."shortDescription"
+        from "cartItems" as "c"
+        join "products" as "p" using ("productId")
+        where "c"."cartItemId" = $1
+      `;
+      const cartItemId = [result.rows[0].cartItemId];
+      return db.query(sql, cartItemId)
+        .then(result => result.json());
+    })
+    .catch(err => console.error(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
