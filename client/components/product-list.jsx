@@ -27,7 +27,7 @@ class ProductList extends Component {
     return (
       <div className="row d-flex justify-content-center">
         {products.map((product, i) => {
-          return <ProductListItem product={product} key={i} />;
+          return <ProductListItem setView={this.props.setView} product={product} key={i} />;
         })}
       </div>
     );
