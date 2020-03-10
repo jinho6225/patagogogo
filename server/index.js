@@ -42,8 +42,8 @@ app.get('/api/products/:productId', (req, res, next) => {
 
 app.get('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
-  const prpty = Object.keys(req.session);
-  if (!prpty.includes('cartId')) {
+  const isCartId = Object.prototype.hasOwnProperty.call(req.session, 'cartId');
+  if (!isCartId) {
     res.json([]);
   } else {
     const sql = `select "c"."cartItemId",
