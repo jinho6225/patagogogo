@@ -41,9 +41,24 @@ app.get('/api/products/:productId', (req, res, next) => {
 });
 
 app.get('/api/cart', (req, res, next) => {
-  const sql = 'select * from carts';
-  db.query(sql)
-    .then(result => res.json(result.rows));
+  const { cartId } = req.session;
+  const prpty = Object.keys(req.session);
+  if (!prpty.includes('cartId')) {
+    res.json([]);
+  } else {
+    const sql = `select "c"."cartItemId",
+        "c"."price",
+        "p"."productId",
+        "p"."image",
+        "p"."name",
+        "p"."shortDescription"
+        from "cartItems" as "c"
+        join "products" as "p" using ("productId")
+      where "c"."cartId" = $1`;
+    const id = [cartId];
+    db.query(sql, id)
+      .then(result => res.status(200).json(result.rows));
+  }
 });
 
 app.post('/api/cart', (req, res, next) => {
@@ -57,21 +72,26 @@ app.post('/api/cart', (req, res, next) => {
   db.query('select "price" from "products" where "productId" = $1', id)
     .then(result1 => {
       if (result1.rows.length === 0) {
-        throw new ClientError('bad request', 400);
+        throw new ClientError('there are no rows in the query result', 400);
       } else {
-        return db.query('insert into "carts" ("cartId", "createdAt") values (default, default) returning "cartId"')
-          .then(result2 => {
-            const obj = {};
-            obj.price = Number((result1.rows[0].price / 100).toFixed(2));
-            obj.cartId = result2.rows[0].cartId;
-            return (obj);
-          });
+        if (!req.session.cartId) {
+          return db.query('insert into "carts" ("cartId", "createdAt") values (default, default) returning "cartId"')
+            .then(result2 => {
+              const obj = {};
+              obj.price = result1.rows[0].price;
+              obj.cartId = result2.rows[0].cartId;
+              return obj;
+            });
+        } else {
+          const obj = {};
+          obj.price = result1.rows[0].price;
+          obj.cartId = req.session.cartId;
+          return obj;
+        }
       }
     })
     .then(result => {
-      req.session = {
-        cartId: result.cartId
-      };
+      req.session.cartId = result.cartId;
       const sql = 'insert into "cartItems" ("cartId", "productId", "price") values ($1, $2, $3) returning "cartItemId"';
       const params = [result.cartId, req.body.productId, result.price];
       return db.query(sql, params);
@@ -90,9 +110,9 @@ app.post('/api/cart', (req, res, next) => {
       `;
       const cartItemId = [result.rows[0].cartItemId];
       return db.query(sql, cartItemId)
-        .then(result => result.json());
+        .then(result => res.status(201).json(result.rows));
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
