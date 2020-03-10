@@ -57,7 +57,8 @@ app.get('/api/cart', (req, res, next) => {
       where "c"."cartId" = $1`;
     const id = [cartId];
     db.query(sql, id)
-      .then(result => res.status(200).json(result.rows));
+      .then(result => res.status(200).json(result.rows))
+      .catch(err => next(err));
   }
 });
 
