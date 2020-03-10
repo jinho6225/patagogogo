@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ProductListItem = props => {
-  const { product } = props;
+  const { product, setView } = props;
   function dollar(num) {
     const arr = num.toString().split('');
     arr.splice(arr.length - 2, 0, '.');
@@ -10,7 +10,9 @@ const ProductListItem = props => {
 
   return (
     <div className="col-4 card-deck my-2">
-      <div className="card">
+      <div className="card" onClick={() => {
+        setView(product.name, product);
+      }}>
         <img src={product.image} className="card-img" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{product.name}</h5>
