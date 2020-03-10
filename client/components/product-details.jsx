@@ -44,6 +44,10 @@ class ProductDetails extends Component {
               <h5 className="card-title">{product.name}</h5>
               <p className="card-text text-muted">{`$${(product.price / 100).toFixed(2)}`}</p>
               <p className="card-text">{product.shortDescription}</p>
+              <p className="card-text" onClick={() => {
+                this.props.addToCard(product);
+              }} ><button type="button" className="btn btn-primary">Add to Cart</button></p>
+
             </div>
           </div>
           <div className="row  w-100">

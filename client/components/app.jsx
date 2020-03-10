@@ -8,11 +8,42 @@ class App extends Component {
     super();
     this.state = {
       view: {
-        name: 'catalog', // { name: 'details',
-        params: {} // params: { productId: product.productId } }
-      }
+        name: 'catalog',
+        params: {}
+      },
+      cart: []
     };
     this.setView = this.setView.bind(this);
+    this.getCartItems = this.getCartItems.bind(this);
+    this.addToCard = this.addToCard.bind(this);
+  }
+
+  addToCard(product) {
+    fetch('api/cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product)
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          cart: [...this.state.cart, data]
+        });
+      });
+  }
+
+  componentDidMount() {
+    this.getCartItems();
+  }
+
+  getCartItems() {
+    fetch('api/cart')
+      .then(res => res.json())
+      .then(cart => {
+        this.setState({ cart });
+      });
   }
 
   setView(name, params) {
@@ -25,13 +56,13 @@ class App extends Component {
   }
 
   render() {
-    const { view } = this.state;
+    const { view, cart } = this.state;
     return (
       <div className="container bg-light">
-        <Header />
+        <Header cartItemCount={cart.length} />
         {view.name === 'catalog'
           ? <ProductList setView={this.setView} />
-          : <ProductDetails setView={this.setView} params={view.params} />}
+          : <ProductDetails addToCard={this.addToCard} setView={this.setView} params={view.params} />}
       </div>
     );
 
