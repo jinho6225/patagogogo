@@ -3,6 +3,7 @@ import Header from './header.jsx';
 import ProductList from './product-list.jsx';
 import ProductDetails from './product-details.jsx';
 import CartSummary from './cart-summary.jsx';
+import CheckoutForm from './checkout-form.jsx';
 
 class App extends Component {
   constructor() {
@@ -18,6 +19,23 @@ class App extends Component {
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCard = this.addToCard.bind(this);
     this.backTo = this.backTo.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
+  }
+
+  placeOrder(order) {
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(order)
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          cart: []
+        });
+      });
   }
 
   backTo() {
@@ -69,9 +87,10 @@ class App extends Component {
         {view.name === 'catalog'
           ? <ProductList setView={this.setView} />
           : view.name === 'cart'
-            ? <CartSummary backTo={this.backTo} cart={cart} />
-            : <ProductDetails backTo={this.backTo} addToCard={this.addToCard} setView={this.setView} params={view.params} />}
-
+            ? <CartSummary backTo={this.backTo} cart={cart} setView={this.setView} />
+            : view.name === 'checkout'
+              ? <CheckoutForm backTo={this.backTo} cart={cart} setView={this.setView} placeOrder={this.placeOrder} />
+              : <ProductDetails backTo={this.backTo} addToCard={this.addToCard} setView={this.setView} params={view.params} />}
       </div>
     );
 

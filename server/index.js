@@ -124,7 +124,7 @@ app.post('/api/orders', (req, res, next) => {
     return;
   }
   const { name, creditCard, shippingAddress } = req.body;
-  if (name === undefined || creditCard === undefined || shippingAddress === undefined || typeof creditCard !== 'number') {
+  if (name === undefined || creditCard === undefined || shippingAddress === undefined) {
     res.status(400).json({
       error: 'Pleas enter correct information'
     });
