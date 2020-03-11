@@ -116,6 +116,38 @@ app.post('/api/cart', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/orders', (req, res, next) => {
+  if (!req.session.cartId) {
+    res.status(400).json({
+      error: 'there is not cardId'
+    });
+  }
+  const { name, creditCard, shippingAddress } = req.body;
+  if (name === undefined || creditCard === undefined || shippingAddress === undefined || typeof creditCard !== 'number') {
+    res.status(400).json({
+      error: 'Pleas enter correct information'
+    });
+  }
+  const { cartId } = req.session;
+  const sql = `insert into
+      "orders" ("cartId", "name", "creditCard", "shippingAddress")
+      values ($1, $2, $3, $4)
+      returning *;
+      `;
+  const params = [cartId, name, creditCard, shippingAddress];
+  db.query(sql, params)
+    .then(result => {
+      const order = {};
+      order.createdAt = result.rows[0].createdAt;
+      order.creditCard = result.rows[0].creditCard;
+      order.name = result.rows[0].name;
+      order.orderId = result.rows[0].orderId;
+      order.shippingAddress = result.rows[0].shippingAddress;
+      res.status(201).json(order);
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
