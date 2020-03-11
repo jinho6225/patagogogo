@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './header.jsx';
 import ProductList from './product-list.jsx';
 import ProductDetails from './product-details.jsx';
+import CartSummary from './cart-summary.jsx';
 
 class App extends Component {
   constructor() {
@@ -16,10 +17,15 @@ class App extends Component {
     this.setView = this.setView.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCard = this.addToCard.bind(this);
+    this.backTo = this.backTo.bind(this);
+  }
+
+  backTo() {
+    this.setView('catalog', {});
   }
 
   addToCard(product) {
-    fetch('api/cart', {
+    fetch('/api/cart', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -29,7 +35,7 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          cart: [...this.state.cart, data]
+          cart: [...this.state.cart, data[0]]
         });
       });
   }
@@ -39,7 +45,7 @@ class App extends Component {
   }
 
   getCartItems() {
-    fetch('api/cart')
+    fetch('/api/cart')
       .then(res => res.json())
       .then(cart => {
         this.setState({ cart });
@@ -59,10 +65,13 @@ class App extends Component {
     const { view, cart } = this.state;
     return (
       <div className="container bg-light">
-        <Header cartItemCount={cart.length} />
+        <Header cartItemCount={cart.length} setView={this.setView} />
         {view.name === 'catalog'
           ? <ProductList setView={this.setView} />
-          : <ProductDetails addToCard={this.addToCard} setView={this.setView} params={view.params} />}
+          : view.name === 'cart'
+            ? <CartSummary backTo={this.backTo} cart={cart} />
+            : <ProductDetails backTo={this.backTo} addToCard={this.addToCard} setView={this.setView} params={view.params} />}
+
       </div>
     );
 

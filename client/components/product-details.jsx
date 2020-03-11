@@ -7,7 +7,6 @@ class ProductDetails extends Component {
       product: null
     };
     this.getProductOne = this.getProductOne.bind(this);
-    this.backTo = this.backTo.bind(this);
   }
 
   getProductOne() {
@@ -23,11 +22,6 @@ class ProductDetails extends Component {
     this.getProductOne();
   }
 
-  backTo() {
-    const { setView } = this.props;
-    setView('catalog', {});
-  }
-
   render() {
     const { product } = this.state;
     if (product !== null) {
@@ -36,7 +30,7 @@ class ProductDetails extends Component {
           <div className="row  w-100 d-flex flex-row" id={product.productId}>
             <div className="col-4 w-100 ">
               <p className="text-muted pointer" onClick={() => {
-                this.backTo();
+                this.props.backTo();
               }}> <i className="fas fa-angle-left "></i> Back to catalog </p>
               <img src={product.image} className="detail-img" alt="..." />
             </div>
