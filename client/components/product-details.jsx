@@ -27,14 +27,14 @@ class ProductDetails extends Component {
     if (product !== null) {
       return (
         <div className="container d-flex flex-column">
-          <div className="row d-flex justify-content-around flex-row" id={product.productId}>
-            <div className="col-4 w-100 ">
+          <div className="row d-flex flex-row justify-content-center" id={product.productId}>
+            <div className="w-100 px-5 d-flex flex-column justify-content-lg-start justify-content-md-center justify-content-sm-center justify-content-center col-4 col-12 order-1 col-lg-5 order-lg-1">
               <p className="text-muted pointer" onClick={() => {
                 this.props.backTo();
               }}> <i className="fas fa-angle-left "></i> Back to catalog </p>
-              <img src={product.image} className="detail-img" alt="..." />
+              <p><img src={product.image} className="detail-img" alt="..." /></p>
             </div>
-            <div className="col-8 w-100 card-body">
+            <div className=" w-100  px-5 d-flex flex-column justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-center  col-8 col-12 order-2 col-lg-7 order-lg-2">
               <h5 className="card-title">{product.name}</h5>
               <p className="card-text text-muted">{`$${(product.price / 100).toFixed(2)}`}</p>
               <p className="card-text">{product.shortDescription}</p>
@@ -45,7 +45,7 @@ class ProductDetails extends Component {
             </div>
           </div>
           <div className="row ">
-            <p className="p-5 my-4">{product.longDescription}</p>
+            <p className="my-3 px-5">{product.longDescription}</p>
           </div>
         </div>
       );
