@@ -11,7 +11,7 @@ const CartSummaryItem = props => {
           <img src={item.image} className="card-img" alt="..." />
         </div>
 
-        <div className="col-7 w-100 p-2">
+        <div className="col-8 w-100 p-2 pl-2">
           <h4 className="card-title">{item.name}</h4>
           <p className="card-text text-muted">{`$${(item.price / 100).toFixed(2)}`}</p>
           <p className="card-text">{item.shortDescription}</p>
