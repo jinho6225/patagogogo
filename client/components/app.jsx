@@ -97,7 +97,7 @@ class App extends Component {
 
     return (
       <div className="container bg-light">
-        <Header cartItemCount={cart.length} setView={this.setView} />
+        <Header cartItemCount={cart.length} setView={this.setView} backTo={this.backTo} />
         {this.page()}
       </div>
     );
