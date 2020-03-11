@@ -79,18 +79,26 @@ class App extends Component {
     });
   }
 
+  page() {
+    const { view: { name, params }, cart } = this.state;
+    if (name === 'catalog') {
+      return <ProductList setView={this.setView} />;
+    } else if (name === 'cart') {
+      return <CartSummary backTo={this.backTo} cart={cart} setView={this.setView} />;
+    } else if (name === 'checkout') {
+      return <CheckoutForm backTo={this.backTo} cart={cart} setView={this.setView} placeOrder={this.placeOrder} />;
+    } else {
+      return <ProductDetails backTo={this.backTo} addToCard={this.addToCard} setView={this.setView} params={params} />;
+    }
+  }
+
   render() {
-    const { view, cart } = this.state;
+    const { cart } = this.state;
+
     return (
       <div className="container bg-light">
         <Header cartItemCount={cart.length} setView={this.setView} />
-        {view.name === 'catalog'
-          ? <ProductList setView={this.setView} />
-          : view.name === 'cart'
-            ? <CartSummary backTo={this.backTo} cart={cart} setView={this.setView} />
-            : view.name === 'checkout'
-              ? <CheckoutForm backTo={this.backTo} cart={cart} setView={this.setView} placeOrder={this.placeOrder} />
-              : <ProductDetails backTo={this.backTo} addToCard={this.addToCard} setView={this.setView} params={view.params} />}
+        {this.page()}
       </div>
     );
 
