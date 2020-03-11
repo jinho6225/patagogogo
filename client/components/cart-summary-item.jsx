@@ -1,11 +1,13 @@
 import React from 'react';
 
 const CartSummaryItem = props => {
-  const { item } = props;
+  const { item, setView } = props;
   return (
     <div className="mt-3">
       <div className="row w-85 m-2 p-2 border border-secondary bg-light d-flex align-items-center">
-        <div className="col-4 w-100 p-2 bg-white">
+        <div className="col-4 w-100 p-2 bg-white pointer" onClick={() => {
+          setView(item.name, item);
+        }}>
           <img src={item.image} className="card-img" alt="..." />
         </div>
 

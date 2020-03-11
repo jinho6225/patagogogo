@@ -15,7 +15,7 @@ const CartSummary = props => {
         }}> <i className="fas fa-angle-left "></i> Back to catalog </span>
         <h2 className="">My Cart</h2>
         {cart.map((item, i) => {
-          return <CartSummaryItem backTo={backTo} key={i} item={item} />;
+          return <CartSummaryItem setView={setView} backTo={backTo} key={i} item={item} />;
         })}
 
         <div className="d-flex justify-content-between p-3">
