@@ -2,7 +2,7 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item.jsx';
 
 const CartSummary = props => {
-  const { cart, backTo, setView } = props;
+  const { cart, backTo } = props;
   if (cart.length === 0) {
     return (
       <div>Cart is empty now 🙂</div>
@@ -29,6 +29,7 @@ const CartSummary = props => {
               }}>Checkout</button>
           </p>
         </div>
+
       </div>
     );
   }

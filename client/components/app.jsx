@@ -5,6 +5,7 @@ import ProductDetails from './product-details.jsx';
 import CartSummary from './cart-summary.jsx';
 import CheckoutForm from './checkout-form.jsx';
 
+
 class App extends Component {
   constructor() {
     super();
@@ -91,6 +92,7 @@ class App extends Component {
             : view.name === 'checkout'
               ? <CheckoutForm backTo={this.backTo} cart={cart} setView={this.setView} placeOrder={this.placeOrder} />
               : <ProductDetails backTo={this.backTo} addToCard={this.addToCard} setView={this.setView} params={view.params} />}
+
       </div>
     );
 

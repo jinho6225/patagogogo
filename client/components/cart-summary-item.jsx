@@ -3,10 +3,11 @@ import React from 'react';
 const CartSummaryItem = props => {
   const { item } = props;
   return (
-    <div className="mt-3">
+
+    <div>
       <div className="row w-85 m-2 p-2 border border-secondary bg-light d-flex align-items-center">
-        <div className="col-4 w-100 p-2 bg-white">
-          <img src={item.image} className="card-img" alt="..." />
+        <div className="col-4 w-100 p-2">
+          <img src={item.image} className="detail-img" alt="..." />
         </div>
 
         <div className="col-7 w-100 p-2">
