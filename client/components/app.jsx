@@ -20,6 +20,8 @@ class App extends Component {
     this.addToCard = this.addToCard.bind(this);
     this.backTo = this.backTo.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
+    this.removeCartItem = this.removeCartItem.bind(this);
+
   }
 
   placeOrder(order) {
@@ -62,6 +64,18 @@ class App extends Component {
     this.getCartItems();
   }
 
+  removeCartItem(item) {
+    const { cartItemId } = item;
+    fetch(`/api/cart/${cartItemId}`, {
+      method: 'DELETE'
+    })
+      .then(res => {
+        if (res.ok) {
+          this.getCartItems();
+        }
+      });
+  }
+
   getCartItems() {
     fetch('/api/cart')
       .then(res => res.json())
@@ -84,7 +98,7 @@ class App extends Component {
     if (name === 'catalog') {
       return <ProductList setView={this.setView} />;
     } else if (name === 'cart') {
-      return <CartSummary backTo={this.backTo} cart={cart} setView={this.setView} />;
+      return <CartSummary removeCartItem={this.removeCartItem} backTo={this.backTo} cart={cart} setView={this.setView} />;
     } else if (name === 'checkout') {
       return <CheckoutForm backTo={this.backTo} cart={cart} setView={this.setView} placeOrder={this.placeOrder} />;
     } else {
@@ -94,7 +108,6 @@ class App extends Component {
 
   render() {
     const { cart } = this.state;
-
     return (
       <div className="container bg-light">
         <Header cartItemCount={cart.length} setView={this.setView} backTo={this.backTo} />

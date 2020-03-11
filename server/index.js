@@ -62,6 +62,26 @@ app.get('/api/cart', (req, res, next) => {
   }
 });
 
+app.delete('/api/cart/:cartItemId', (req, res, next) => {
+  const { cartItemId } = req.params;
+  if (Number(cartItemId) <= 0) {
+    return res.status(400).json({
+      error: 'cartItemId must be a positive integer'
+    });
+  }
+  const sql = 'delete from "cartItems" where "cartItemId" = $1 returning *;';
+  const params = [cartItemId];
+  db.query(sql, params)
+    .then(result => {
+      if (result.rows.length === 0) {
+        throw new ClientError('there are no rows in the query result', 400);
+      } else {
+        res.status(204).json(result.rows);
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
   if (Number(productId) <= 0) {
