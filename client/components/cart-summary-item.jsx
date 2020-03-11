@@ -3,6 +3,7 @@ import React from 'react';
 const CartSummaryItem = props => {
   const { item } = props;
   return (
+
     <div>
       <div className="row w-85 m-2 p-2 border border-secondary bg-light d-flex align-items-center">
         <div className="col-4 w-100 p-2">
