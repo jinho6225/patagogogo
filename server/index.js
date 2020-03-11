@@ -121,12 +121,14 @@ app.post('/api/orders', (req, res, next) => {
     res.status(400).json({
       error: 'there is not cardId'
     });
+    return;
   }
   const { name, creditCard, shippingAddress } = req.body;
   if (name === undefined || creditCard === undefined || shippingAddress === undefined || typeof creditCard !== 'number') {
     res.status(400).json({
       error: 'Pleas enter correct information'
     });
+    return;
   }
   const { cartId } = req.session;
   const sql = `insert into
@@ -137,13 +139,7 @@ app.post('/api/orders', (req, res, next) => {
   const params = [cartId, name, creditCard, shippingAddress];
   db.query(sql, params)
     .then(result => {
-      const order = {};
-      order.createdAt = result.rows[0].createdAt;
-      order.creditCard = result.rows[0].creditCard;
-      order.name = result.rows[0].name;
-      order.orderId = result.rows[0].orderId;
-      order.shippingAddress = result.rows[0].shippingAddress;
-      res.status(201).json(order);
+      res.status(201).json(result.rows[0]);
     })
     .catch(err => next(err));
 });
