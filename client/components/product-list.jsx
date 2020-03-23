@@ -25,11 +25,21 @@ class ProductList extends Component {
   render() {
     const { products } = this.state;
     return (
-      <div className="row d-flex justify-content-center">
-        {products.map((product, i) => {
-          return <ProductListItem setView={this.props.setView} product={product} key={i} />;
-        })}
-      </div>
+      <>
+        <div className="container py-3">
+          <div className="card-deck d-flex">
+            {products.map((product, i) => {
+              return (
+                <ProductListItem
+                  setView={this.props.setView}
+                  product={product}
+                  key={i}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </>
     );
   }
 }

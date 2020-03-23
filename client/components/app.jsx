@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header.jsx';
+import Footer from './footer.jsx';
+
 import ProductList from './product-list.jsx';
 import ProductDetails from './product-details.jsx';
 import CartSummary from './cart-summary.jsx';
@@ -131,14 +133,15 @@ class App extends Component {
   render() {
     const { cart } = this.state;
     return (
-      <div className="container bg-light">
+      <>
         <Header
           cartItemCount={cart.length}
           setView={this.setView}
           backTo={this.backTo}
         />
-        {this.page()}
-      </div>
+        <div className="content-div">{this.page()}</div>
+        <Footer />
+      </>
     );
   }
 }
