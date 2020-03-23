@@ -32,15 +32,11 @@ body {
 
 a {
   transition: 0.3s all;
-  color: #5a4894;
+  color: #ffd79c;
 }
 
-a:hover {
-  text-decoration: none;
-}
-
-.primary {
-  background: #5a4894;
+.addBtn {
+  background: #ffd79c;
 }
 
 .catalog-hero {
@@ -52,13 +48,8 @@ a:hover {
 }
 
 .content-div {
-  min-height: 84vh;
+  min-height: 78vh;
   background: #fff;
-}
-
-.object-fit-details {
-  object-fit: contain;
-  height: 400px;
 }
 
 .pointer {
@@ -208,6 +199,8 @@ select {
   box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, 0.075);
 }
 
-.title {
-  text-align: center;
+.detail-img {
+  object-fit: contain;
+  height: 400px;
+  padding: 1.25rem;
 }
