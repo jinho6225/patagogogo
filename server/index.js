@@ -14,15 +14,15 @@ app.use(sessionMiddleware);
 app.use(express.json());
 
 app.get('/api/health-check', (req, res, next) => {
-  db.query('select \'successfully connected\' as "message"')
+  db.query("select 'successfully connected' as \"message\"")
     .then(result => res.json(result.rows[0]))
     .catch(err => next(err));
 });
 
 app.get('/api/products', (req, res, next) => {
-  const sql = 'select "productId", "name", "price", "image", "shortDescription" from products';
-  db.query(sql)
-    .then(result => res.json(result.rows));
+  const sql =
+    'select "productId", "name", "price", "image", "shortDescription" from products';
+  db.query(sql).then(result => res.json(result.rows));
 });
 
 app.get('/api/products/:productId', (req, res, next) => {
@@ -96,7 +96,10 @@ app.post('/api/cart', (req, res, next) => {
         throw new ClientError('there are no rows in the query result', 400);
       } else {
         if (!req.session.cartId) {
-          return db.query('insert into "carts" ("cartId", "createdAt") values (default, default) returning "cartId"')
+          return db
+            .query(
+              'insert into "carts" ("cartId", "createdAt") values (default, default) returning "cartId"'
+            )
             .then(result2 => {
               const obj = {};
               obj.price = result1.rows[0].price;
@@ -113,7 +116,8 @@ app.post('/api/cart', (req, res, next) => {
     })
     .then(result => {
       req.session.cartId = result.cartId;
-      const sql = 'insert into "cartItems" ("cartId", "productId", "price") values ($1, $2, $3) returning "cartItemId"';
+      const sql =
+        'insert into "cartItems" ("cartId", "productId", "price") values ($1, $2, $3) returning "cartItemId"';
       const params = [result.cartId, req.body.productId, result.price];
       return db.query(sql, params);
     })
@@ -130,7 +134,8 @@ app.post('/api/cart', (req, res, next) => {
         where "c"."cartItemId" = $1
       `;
       const cartItemId = [result.rows[0].cartItemId];
-      return db.query(sql, cartItemId)
+      return db
+        .query(sql, cartItemId)
         .then(result => res.status(201).json(result.rows));
     })
     .catch(err => next(err));
@@ -144,7 +149,11 @@ app.post('/api/orders', (req, res, next) => {
     return;
   }
   const { name, creditCard, shippingAddress } = req.body;
-  if (name === undefined || creditCard === undefined || shippingAddress === undefined) {
+  if (
+    name === undefined ||
+    creditCard === undefined ||
+    shippingAddress === undefined
+  ) {
     res.status(400).json({
       error: 'Pleas enter correct information'
     });

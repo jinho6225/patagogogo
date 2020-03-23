@@ -21,7 +21,6 @@ class App extends Component {
     this.backTo = this.backTo.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
-
   }
 
   placeOrder(order) {
@@ -68,12 +67,11 @@ class App extends Component {
     const { cartItemId } = item;
     fetch(`/api/cart/${cartItemId}`, {
       method: 'DELETE'
-    })
-      .then(res => {
-        if (res.ok) {
-          this.getCartItems();
-        }
-      });
+    }).then(res => {
+      if (res.ok) {
+        this.getCartItems();
+      }
+    });
   }
 
   getCartItems() {
@@ -94,15 +92,39 @@ class App extends Component {
   }
 
   page() {
-    const { view: { name, params }, cart } = this.state;
+    const {
+      view: { name, params },
+      cart
+    } = this.state;
     if (name === 'catalog') {
       return <ProductList setView={this.setView} />;
     } else if (name === 'cart') {
-      return <CartSummary removeCartItem={this.removeCartItem} backTo={this.backTo} cart={cart} setView={this.setView} />;
+      return (
+        <CartSummary
+          removeCartItem={this.removeCartItem}
+          backTo={this.backTo}
+          cart={cart}
+          setView={this.setView}
+        />
+      );
     } else if (name === 'checkout') {
-      return <CheckoutForm backTo={this.backTo} cart={cart} setView={this.setView} placeOrder={this.placeOrder} />;
+      return (
+        <CheckoutForm
+          backTo={this.backTo}
+          cart={cart}
+          setView={this.setView}
+          placeOrder={this.placeOrder}
+        />
+      );
     } else {
-      return <ProductDetails backTo={this.backTo} addToCard={this.addToCard} setView={this.setView} params={params} />;
+      return (
+        <ProductDetails
+          backTo={this.backTo}
+          addToCard={this.addToCard}
+          setView={this.setView}
+          params={params}
+        />
+      );
     }
   }
 
@@ -110,11 +132,14 @@ class App extends Component {
     const { cart } = this.state;
     return (
       <div className="container bg-light">
-        <Header cartItemCount={cart.length} setView={this.setView} backTo={this.backTo} />
+        <Header
+          cartItemCount={cart.length}
+          setView={this.setView}
+          backTo={this.backTo}
+        />
         {this.page()}
       </div>
     );
-
   }
 }
 
