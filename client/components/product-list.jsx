@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductListItem from './product-list-item.jsx';
+import Catalog from './catalog.jsx';
 
 class ProductList extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class ProductList extends Component {
     const { products } = this.state;
     return (
       <>
+        <Catalog />
         <div className="container py-3">
           <div className="card-deck d-flex">
             {products.map((product, i) => {

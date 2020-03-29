@@ -37,7 +37,7 @@ const CartSummary = props => {
             {' '}
             <i className="fas fa-chevron-circle-left "></i> Back to catalog
           </a>
-          <h1 className="">My Cart</h1>
+          <h1 className="mb-3">My Cart</h1>
           {cart.map((item, i) => {
             return (
               <CartSummaryItem
@@ -59,7 +59,7 @@ const CartSummary = props => {
             </h4>
             <button
               type="button"
-              className="btn text-white addBtn"
+              className="btn text-white checkoutBtn"
               onClick={() => {
                 setView('checkout', { productId: {} });
               }}

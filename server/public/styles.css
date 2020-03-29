@@ -11,7 +11,7 @@ body {
 }
 
 .fade-in {
-  animation: fade-in 0.75s;
+  animation: fade-in 1s;
   animation-fill-mode: forwards;
 }
 
@@ -21,7 +21,7 @@ body {
 }
 
 .slide-in {
-  animation: slide-in 0.75s;
+  animation: slide-in 1s;
   animation-fill-mode: forwards;
 }
 
@@ -36,7 +36,13 @@ a {
 }
 
 .addBtn {
-  background: #ffd79c;
+  background: #6370ff;
+}
+.checkoutBtn {
+  background: #43a200;
+}
+.removeBtn {
+  background: #ffa5a5;
 }
 
 .catalog-hero {
@@ -94,11 +100,11 @@ textarea {
   color: #000;
 }
 
-.carousel-item {
+.catalog-item {
   height: 75vh;
 }
 
-.carousel-item img {
+.catalog-item img {
   height: 75vh;
   object-fit: cover;
 }
@@ -109,24 +115,9 @@ textarea {
   bottom: initial;
 }
 
-.carousel-slide {
+.catalog-slide {
   background-size: cover;
   background-position: center;
-}
-
-.slide-1 {
-  background-image: linear-gradient(#00000050, #00000050),
-    url('./images/carousel-1.jpg');
-}
-
-.slide-2 {
-  background-image: linear-gradient(#00000050, #00000050),
-    url('./images/carousel-2.jpg');
-}
-
-.slide-3 {
-  background-image: linear-gradient(#00000050, #00000050),
-    url('./images/carousel-3.jpg');
 }
 
 select {
@@ -138,11 +129,11 @@ select {
 }
 
 @media (max-width: 767px) {
-  .carousel-item {
+  .catalog-item {
     height: 50vh;
   }
 
-  .carousel-item img {
+  .catalog-item img {
     height: 50vh;
   }
 }
@@ -195,7 +186,7 @@ select {
 }
 
 .product:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, 0.075);
 }
 

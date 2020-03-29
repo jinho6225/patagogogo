@@ -4,7 +4,7 @@ const CartSummaryItem = props => {
   const { item, setView, removeCartItem } = props;
   return (
     <div className="container mb-3">
-      <div className="row border bg-white rounded p-3 position-relative item-card slide-in">
+      <div className="row border bg-white rounded p-3 position-relative item-card fade-in shadow">
         <div className="d-flex justify-content-between w-100 p-2">
           <h4 className="card-title">{item.name}</h4>
         </div>
@@ -14,7 +14,11 @@ const CartSummaryItem = props => {
             setView(item.name, item);
           }}
         >
-          <img src={item.image} alt="" className="object-fit-card" />
+          <img
+            src={item.image}
+            alt=""
+            className="object-fit-card pointer fade-in"
+          />
         </div>
 
         <div className="col-md-8 m-auto slide-in">
@@ -57,7 +61,7 @@ const CartSummaryItem = props => {
 
           <button
             type="button"
-            className="btn text-white addBtn"
+            className="btn text-white removeBtn"
             onClick={() => {
               removeCartItem(item);
             }}
