@@ -81,7 +81,7 @@ class ProductDetails extends Component {
               <div className="col-md-5">
                 <img
                   src={product.image}
-                  className="w-100 detail-img slide-in"
+                  className="w-100 detail-img fade-in"
                   alt={product.name}
                 />
               </div>
