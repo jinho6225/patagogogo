@@ -5,35 +5,68 @@ const CartSummary = props => {
   const { cart, backTo, setView, removeCartItem } = props;
   if (cart.length === 0) {
     return (
-      <div className="d-flex justify-content-center flex-column">
-        <h3 className="mt-5 text-center">Cart is empty now 🙂</h3>
-        <p className="text-center"><button type="button" className="btn btn-primary"
-          onClick={() => {
-            backTo();
-          }}>Check the Items</button></p>
+      <div className="container py-5">
+        <div className="d-flex justify-content-center flex-column">
+          <h2 className="">My Cart</h2>
+          <h3 className="fade-in slide-in">Your cart is empty now</h3>
+
+          <p className="text-center">
+            <button
+              type="button"
+              className="btn text-white addBtn"
+              onClick={() => {
+                backTo();
+              }}
+            >
+              Check the Items
+            </button>
+          </p>
+        </div>
       </div>
     );
   } else {
     return (
-      <div className="bg-light">
-        <span className="text-muted pointer" onClick={() => {
-          backTo();
-        }}> <i className="fas fa-angle-left "></i> Back to catalog </span>
-        <h2 className="">My Cart</h2>
-        {cart.map((item, i) => {
-          return <CartSummaryItem removeCartItem={removeCartItem} setView={setView} backTo={backTo} key={i} item={item} />;
-        })}
+      <div className="container py-5">
+        <div className="mb-3">
+          <a
+            className="text-muted pointer mb-3"
+            onClick={() => {
+              backTo();
+            }}
+          >
+            {' '}
+            <i className="fas fa-chevron-circle-left "></i> Back to catalog
+          </a>
+          <h1 className="">My Cart</h1>
+          {cart.map((item, i) => {
+            return (
+              <CartSummaryItem
+                removeCartItem={removeCartItem}
+                setView={setView}
+                backTo={backTo}
+                key={i}
+                item={item}
+              />
+            );
+          })}
 
-        <div className="d-flex justify-content-between p-3">
-          <h4 className="card-text">Item Total $ {cart.reduce((acc, cur) => {
-            return acc + cur.price;
-          }, 0) / 100}</h4>
-          <p className="card-text" >
-            <button type="button" className="btn btn-primary"
+          <div className="d-md-flex justify-content-between slide-in p-3">
+            <h4 className="md-my-auto text-muted slide-in">
+              Item Total ${' '}
+              {cart.reduce((acc, cur) => {
+                return acc + cur.price;
+              }, 0) / 100}
+            </h4>
+            <button
+              type="button"
+              className="btn text-white addBtn"
               onClick={() => {
                 setView('checkout', { productId: {} });
-              }}>Checkout</button>
-          </p>
+              }}
+            >
+              Checkout
+            </button>
+          </div>
         </div>
       </div>
     );
