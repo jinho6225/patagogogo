@@ -3,7 +3,7 @@ import React from 'react';
 const Header = props => {
   const { cartItemCount, setView, backTo } = props;
   return (
-    <div className="bg-dark text-white sticky-top py-3">
+    <div className="bgGray text-white sticky-top py-3">
       <div className="container d-flex align-items-center justify-content-between">
         <h3
           className="text-light m-0 title pointer"

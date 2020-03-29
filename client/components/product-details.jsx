@@ -33,7 +33,7 @@ class ProductDetails extends Component {
             displayNone: true
           }
         });
-      }, 750);
+      }, 1000);
     } else {
       this.setState({
         showModal: {

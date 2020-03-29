@@ -3,13 +3,13 @@ import CartSummaryItem from './cart-summary-item.jsx';
 
 const CartSummary = props => {
   const { cart, backTo, setView, removeCartItem } = props;
+
   if (cart.length === 0) {
     return (
       <div className="container py-5">
         <div className="d-flex justify-content-center flex-column">
           <h2 className="">My Cart</h2>
-          <h3 className="fade-in slide-in">Your cart is empty now</h3>
-
+          <h3 className="fade-in">Your cart is empty now</h3>
           <p className="text-center">
             <button
               type="button"
@@ -43,7 +43,6 @@ const CartSummary = props => {
               <CartSummaryItem
                 removeCartItem={removeCartItem}
                 setView={setView}
-                backTo={backTo}
                 key={i}
                 item={item}
               />
