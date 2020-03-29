@@ -8,7 +8,6 @@ const CartSummaryItem = props => {
         <div className="d-flex justify-content-between w-100 p-2">
           <h4 className="card-title">{item.name}</h4>
         </div>
-
         <div
           className="col-md-4 slide-in"
           onClick={() => {
@@ -43,7 +42,7 @@ const CartSummaryItem = props => {
                 </button>
               </div>
               <div className="d-flex px-3">
-                <h5 className="m-auto">{props.item.quantity}</h5>
+                <h5 className="m-auto">{item.quantity}</h5>
               </div>
               <div className="d-flex">
                 <button
