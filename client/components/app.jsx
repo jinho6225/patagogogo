@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from './header.jsx';
 import Footer from './footer.jsx';
-
 import ProductList from './product-list.jsx';
 import ProductDetails from './product-details.jsx';
 import CartSummary from './cart-summary.jsx';
@@ -19,7 +18,7 @@ class App extends Component {
     };
     this.setView = this.setView.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
-    this.addToCard = this.addToCard.bind(this);
+    this.addToCart = this.addToCart.bind(this);
     this.backTo = this.backTo.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
@@ -45,7 +44,7 @@ class App extends Component {
     this.setView('catalog', {});
   }
 
-  addToCard(product) {
+  addToCart(product) {
     fetch('/api/cart', {
       method: 'POST',
       headers: {
@@ -122,7 +121,7 @@ class App extends Component {
       return (
         <ProductDetails
           backTo={this.backTo}
-          addToCard={this.addToCard}
+          addToCart={this.addToCart}
           setView={this.setView}
           params={params}
         />

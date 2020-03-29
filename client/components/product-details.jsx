@@ -16,7 +16,10 @@ class ProductDetails extends Component {
   }
 
   toggleModal() {
-    if (this.state.showModal.show) {
+    const {
+      showModal: { show }
+    } = this.state;
+    if (show) {
       this.setState({
         showModal: {
           show: false,
@@ -92,7 +95,7 @@ class ProductDetails extends Component {
                   type="button"
                   className="btn text-white addBtn card-text slide-in"
                   onClick={() => {
-                    this.props.addToCard(product);
+                    this.props.addToCart(product);
                     this.toggleModal();
                   }}
                 >
