@@ -11,6 +11,7 @@ class CartSummaryItem extends Component {
       }
     };
     this.toggleModal = this.toggleModal.bind(this);
+    this.timeId = null;
   }
 
   toggleModal() {
@@ -24,14 +25,15 @@ class CartSummaryItem extends Component {
           displayNone: false
         }
       });
-      setTimeout(() => {
+      this.timeId = setTimeout(() => {
         this.setState({
           showModal: {
             show: false,
             displayNone: true
           }
         });
-      }, 1000);
+      }, 750);
+      clearTimeout(this.timeId);
     } else {
       this.setState({
         showModal: {

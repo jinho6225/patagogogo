@@ -3,7 +3,6 @@ import CartSummaryItem from './cart-summary-item.jsx';
 
 const CartSummary = props => {
   const { cart, backTo, setView, removeCartItem } = props;
-
   if (cart.length === 0) {
     return (
       <div className="container py-5">
@@ -48,7 +47,6 @@ const CartSummary = props => {
               />
             );
           })}
-
           <div className="d-md-flex justify-content-between slide-in p-3">
             <h4 className="md-my-auto text-muted slide-in">
               Item Total ${' '}
