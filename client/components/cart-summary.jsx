@@ -50,9 +50,11 @@ const CartSummary = props => {
           <div className="d-md-flex justify-content-between slide-in p-3">
             <h4 className="md-my-auto text-muted slide-in">
               Item Total ${' '}
-              {cart.reduce((acc, cur) => {
-                return acc + cur.price;
-              }, 0) / 100}
+              {(
+                cart.reduce((acc, cur) => {
+                  return (acc + cur.price) * cur.quantity;
+                }, 0) / 100
+              ).toFixed(2)}
             </h4>
             <button
               type="button"

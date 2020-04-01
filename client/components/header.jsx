@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = props => {
   const { cart, setView, backTo } = props;
-  const items = cart.reduce((acc, cur) => {
+  const itemsQuantity = cart.reduce((acc, cur) => {
     return acc + cur.quantity;
   }, 0);
 
@@ -23,7 +23,7 @@ const Header = props => {
             setView('cart', { productId: {} });
           }}
         >
-          {items} Items &nbsp;<i className="fas fa-shopping-cart"></i>
+          {itemsQuantity} Items &nbsp;<i className="fas fa-shopping-cart"></i>
         </p>
       </div>
     </div>

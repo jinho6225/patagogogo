@@ -67,7 +67,8 @@ class CartSummaryItem extends Component {
 
           <div className="col-md-8 m-auto slide-in">
             <h4 className="card-text text-muted">{`$${(
-              item.price / 100
+              (item.price / 100) *
+              item.quantity
             ).toFixed(2)}`}</h4>
             <p className="card-text">{item.shortDescription}</p>
 
