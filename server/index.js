@@ -123,16 +123,11 @@ app.post('/api/cart', (req, res, next) => {
         if (resultArr.length !== 0) {
           for (let i = 0; i < resultArr.length; i++) {
             if (productId === resultArr[i].productId) {
-              if (operator === '+') {
-                resultArr[i].quantity = resultArr[i].quantity + 1;
-                const sql = `update "cartItems" set "quantity" =
+              const sql = `update "cartItems" set "quantity" =
                             quantity ${operator} $2 where "productId" = $1
                             returning "cartItemId"`;
-                const params = [productId, 1];
-                return db.query(sql, params);
-              } else {
-                resultArr[i].quantity = resultArr[i].quantity - 1;
-              }
+              const params = [productId, 1];
+              return db.query(sql, params);
             } else {
               const sql = `insert into "cartItems" ("cartId", "productId", "price", "quantity")
                           values ($1, $2, $3, $4)

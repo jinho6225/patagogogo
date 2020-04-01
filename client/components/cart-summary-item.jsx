@@ -90,7 +90,7 @@ class CartSummaryItem extends Component {
                   </button>
                 </div>
                 <div className="d-flex px-3">
-                  <h5 className="m-auto">0</h5>
+                  <h5 className="m-auto">{item.quantity}</h5>
                 </div>
                 <div className="d-flex">
                   <button
