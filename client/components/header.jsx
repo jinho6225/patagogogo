@@ -7,7 +7,7 @@ const Header = props => {
   }, 0);
 
   return (
-    <div className="bgGray text-white sticky-top py-3">
+    <div className="bgBlack text-white sticky-top py-3">
       <div className="container d-flex align-items-center justify-content-between">
         <h3
           className="text-light m-0 title pointer"

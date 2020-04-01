@@ -35,8 +35,8 @@ a {
   color: #ffd79c;
 }
 
-.bgGray {
-  background-color: darkgrey;
+.bgBlack {
+  background-color: rgb(0, 0, 0);
 }
 
 .addBtn {

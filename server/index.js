@@ -171,6 +171,7 @@ app.post('/api/orders', (req, res, next) => {
     });
     return;
   }
+  // console.log(req.body);
   const { name, creditCard, shippingAddress } = req.body;
   if (
     name === undefined ||
