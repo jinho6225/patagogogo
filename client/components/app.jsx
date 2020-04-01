@@ -137,11 +137,7 @@ class App extends Component {
     const { cart } = this.state;
     return (
       <>
-        <Header
-          cartItemCount={cart.length}
-          setView={this.setView}
-          backTo={this.backTo}
-        />
+        <Header cart={cart} setView={this.setView} backTo={this.backTo} />
         <div className="content-div">{this.page()}</div>
         <Footer />
       </>
