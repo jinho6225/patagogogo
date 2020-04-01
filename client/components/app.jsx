@@ -44,18 +44,22 @@ class App extends Component {
     this.setView('catalog', {});
   }
 
-  addToCart(product) {
+  addToCart(productId, operator) {
     fetch('/api/cart', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(product)
+      body: JSON.stringify({ productId, operator })
     })
       .then(response => response.json())
       .then(data => {
+        const { cart } = this.state;
+        const updateCart = cart.filter((item, i) => {
+          return item.productId !== data[0].productId;
+        });
         this.setState({
-          cart: [...this.state.cart, data[0]]
+          cart: [...updateCart, data[0]]
         });
       });
   }
