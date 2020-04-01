@@ -104,15 +104,6 @@ class CartSummaryItem extends Component {
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              className="btn text-white removeBtn"
-              onClick={() => {
-                this.toggleModal();
-              }}
-            >
-              Remove from Cart
-            </button>
           </div>
         </div>
         <RemoveModal
