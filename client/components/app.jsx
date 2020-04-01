@@ -54,13 +54,7 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        const { cart } = this.state;
-        const updateCart = cart.filter((item, i) => {
-          return item.productId !== data[0].productId;
-        });
-        this.setState({
-          cart: [...updateCart, data[0]]
-        });
+        this.getCartItems();
       });
   }
 
@@ -109,6 +103,7 @@ class App extends Component {
           removeCartItem={this.removeCartItem}
           backTo={this.backTo}
           cart={cart}
+          addToCart={this.addToCart}
           setView={this.setView}
         />
       );

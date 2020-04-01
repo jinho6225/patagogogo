@@ -81,10 +81,7 @@ app.delete('/api/cart/:cartItemId', (req, res, next) => {
 });
 
 app.post('/api/cart', (req, res, next) => {
-  const {
-    productId: { productId },
-    operator
-  } = req.body;
+  const { productId, operator } = req.body;
   if (Number(productId) <= 0) {
     return res.status(400).json({
       error: 'productId must be a positive integer'
@@ -121,20 +118,21 @@ app.post('/api/cart', (req, res, next) => {
       return db.query(qry).then(result2 => {
         const resultArr = Array.from(result2.rows);
         if (resultArr.length !== 0) {
-          for (let i = 0; i < resultArr.length; i++) {
-            if (productId === resultArr[i].productId) {
-              const sql = `update "cartItems" set "quantity" =
+          const sameProductId = resultArr.filter(
+            result => result.productId === productId
+          );
+          if (sameProductId.length !== 0) {
+            const sql = `update "cartItems" set "quantity" =
                             quantity ${operator} $2 where "productId" = $1
                             returning "cartItemId"`;
-              const params = [productId, 1];
-              return db.query(sql, params);
-            } else {
-              const sql = `insert into "cartItems" ("cartId", "productId", "price", "quantity")
+            const params = [productId, 1];
+            return db.query(sql, params);
+          } else {
+            const sql = `insert into "cartItems" ("cartId", "productId", "price", "quantity")
                           values ($1, $2, $3, $4)
                           returning "cartItemId"`;
-              const params = [result.cartId, productId, result.price, 1];
-              return db.query(sql, params);
-            }
+            const params = [result.cartId, productId, result.price, 1];
+            return db.query(sql, params);
           }
         } else {
           const sql = `insert into "cartItems" ("cartId", "productId", "price", "quantity")

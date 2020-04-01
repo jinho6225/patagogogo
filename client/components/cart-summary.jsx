@@ -2,7 +2,7 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item.jsx';
 
 const CartSummary = props => {
-  const { cart, backTo, setView, removeCartItem } = props;
+  const { cart, backTo, setView, removeCartItem, addToCart } = props;
   if (cart.length === 0) {
     return (
       <div className="container py-5">
@@ -40,6 +40,7 @@ const CartSummary = props => {
           {cart.map((item, i) => {
             return (
               <CartSummaryItem
+                addToCart={addToCart}
                 removeCartItem={removeCartItem}
                 setView={setView}
                 key={i}

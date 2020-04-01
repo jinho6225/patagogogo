@@ -45,7 +45,7 @@ class CartSummaryItem extends Component {
   }
 
   render() {
-    const { item, setView, removeCartItem } = this.props;
+    const { item, setView, removeCartItem, addToCart } = this.props;
     return (
       <div className="container mb-3">
         <div className="row border bg-white rounded p-3 position-relative item-card fade-in shadow">
@@ -78,14 +78,13 @@ class CartSummaryItem extends Component {
                 <div className="d-flex">
                   <button
                     className="btn btn-light rounded-right"
-                    // onClick={() => {
-                    //   if (props.product.quantity > 1) {
-                    //     props.sendToCart(props.product.productId, '-');
-                    //   } else {
-                    //     props.productToRemove(props.product);
-                    //     props.toggleModal();
-                    //   }
-                    // }}
+                    onClick={() => {
+                      if (item.quantity > 1) {
+                        addToCart(item.productId, '-');
+                      } else {
+                        this.toggleModal();
+                      }
+                    }}
                   >
                     <i className="fas fa-minus m-auto" />
                   </button>
@@ -96,7 +95,9 @@ class CartSummaryItem extends Component {
                 <div className="d-flex">
                   <button
                     className="btn btn-light rounded-left"
-                    // onClick={() => { props.sendToCart(props.product.productId, '+'); }}
+                    onClick={() => {
+                      addToCart(item.productId, '+');
+                    }}
                   >
                     <i className="fas fa-plus m-auto" />
                   </button>
