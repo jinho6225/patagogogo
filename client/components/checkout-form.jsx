@@ -35,9 +35,11 @@ class CheckoutForm extends Component {
           <h1 className="mb-3">Place Order</h1>
           <h4 className="card-text text-muted my-3">
             Item Total ${' '}
-            {cart.reduce((acc, cur) => {
-              return acc + cur.price;
-            }, 0) / 100}
+            {(
+              cart.reduce((acc, cur) => {
+                return (acc + cur.price) * cur.quantity;
+              }, 0) / 100
+            ).toFixed(2)}
           </h4>
           <form>
             <label>Name</label>

@@ -44,19 +44,17 @@ class App extends Component {
     this.setView('catalog', {});
   }
 
-  addToCart(product) {
+  addToCart(productId, operator) {
     fetch('/api/cart', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(product)
+      body: JSON.stringify({ productId, operator })
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({
-          cart: [...this.state.cart, data[0]]
-        });
+        this.getCartItems();
       });
   }
 
@@ -105,6 +103,7 @@ class App extends Component {
           removeCartItem={this.removeCartItem}
           backTo={this.backTo}
           cart={cart}
+          addToCart={this.addToCart}
           setView={this.setView}
         />
       );
@@ -133,11 +132,7 @@ class App extends Component {
     const { cart } = this.state;
     return (
       <>
-        <Header
-          cartItemCount={cart.length}
-          setView={this.setView}
-          backTo={this.backTo}
-        />
+        <Header cart={cart} setView={this.setView} backTo={this.backTo} />
         <div className="content-div">{this.page()}</div>
         <Footer />
       </>

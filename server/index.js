@@ -1,20 +1,17 @@
 require('dotenv/config');
 const express = require('express');
-
 const db = require('./database');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
 const sessionMiddleware = require('./session-middleware');
-
 const app = express();
 
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
-
 app.use(express.json());
 
 app.get('/api/health-check', (req, res, next) => {
-  db.query("select 'successfully connected' as \"message\"")
+  db.query('select \'successfully connected\' as "message"')
     .then(result => res.json(result.rows[0]))
     .catch(err => next(err));
 });
@@ -48,6 +45,7 @@ app.get('/api/cart', (req, res, next) => {
   } else {
     const sql = `select "c"."cartItemId",
         "c"."price",
+        "c"."quantity",
         "p"."productId",
         "p"."image",
         "p"."name",
@@ -83,7 +81,7 @@ app.delete('/api/cart/:cartItemId', (req, res, next) => {
 });
 
 app.post('/api/cart', (req, res, next) => {
-  const { productId } = req.body;
+  const { productId, operator } = req.body;
   if (Number(productId) <= 0) {
     return res.status(400).json({
       error: 'productId must be a positive integer'
@@ -116,15 +114,40 @@ app.post('/api/cart', (req, res, next) => {
     })
     .then(result => {
       req.session.cartId = result.cartId;
-      const sql =
-        'insert into "cartItems" ("cartId", "productId", "price") values ($1, $2, $3) returning "cartItemId"';
-      const params = [result.cartId, req.body.productId, result.price];
-      return db.query(sql, params);
+      const qry = 'select * from "cartItems";';
+      return db.query(qry).then(result2 => {
+        const resultArr = Array.from(result2.rows);
+        if (resultArr.length !== 0) {
+          const sameProductId = resultArr.filter(
+            result => result.productId === productId
+          );
+          if (sameProductId.length !== 0) {
+            const sql = `update "cartItems" set "quantity" =
+                            quantity ${operator} $2 where "productId" = $1
+                            returning "cartItemId"`;
+            const params = [productId, 1];
+            return db.query(sql, params);
+          } else {
+            const sql = `insert into "cartItems" ("cartId", "productId", "price", "quantity")
+                          values ($1, $2, $3, $4)
+                          returning "cartItemId"`;
+            const params = [result.cartId, productId, result.price, 1];
+            return db.query(sql, params);
+          }
+        } else {
+          const sql = `insert into "cartItems" ("cartId", "productId", "price", "quantity")
+                      values ($1, $2, $3, $4)
+                      returning "cartItemId"`;
+          const params = [result.cartId, productId, result.price, 1];
+          return db.query(sql, params);
+        }
+      });
     })
     .then(result => {
       const sql = `
         select "c"."cartItemId",
         "c"."price",
+        "c"."quantity",
         "p"."productId",
         "p"."image",
         "p"."name",
@@ -134,9 +157,9 @@ app.post('/api/cart', (req, res, next) => {
         where "c"."cartItemId" = $1
       `;
       const cartItemId = [result.rows[0].cartItemId];
-      return db
-        .query(sql, cartItemId)
-        .then(result => res.status(201).json(result.rows));
+      return db.query(sql, cartItemId).then(result => {
+        res.status(201).json(result.rows);
+      });
     })
     .catch(err => next(err));
 });

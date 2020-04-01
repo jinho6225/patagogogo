@@ -33,7 +33,7 @@ class ProductDetails extends Component {
             displayNone: true
           }
         });
-      }, 750);
+      }, 1000);
     } else {
       this.setState({
         showModal: {
@@ -95,7 +95,7 @@ class ProductDetails extends Component {
                   type="button"
                   className="btn text-white addBtn card-text slide-in"
                   onClick={() => {
-                    this.props.addToCart(product);
+                    this.props.addToCart(product.productId, '+');
                     this.toggleModal();
                   }}
                 >
