@@ -2,7 +2,7 @@ import React from 'react';
 import ValidationForm from './validation-form';
 
 const CheckoutForm = props => {
-  const { cart, setView, placeOrder } = props;
+  const { cart, setView, placeOrder, backTo } = props;
   return (
     <div className="container py-5">
       <div className="mb-3">
@@ -18,10 +18,7 @@ const CheckoutForm = props => {
 
         <div className="row">
           <div className="col-md-12 slide-in">
-            <ValidationForm
-              placeOrder={placeOrder}
-              // setConfirmation={props.setConfirmation}
-            />
+            <ValidationForm placeOrder={placeOrder} backTo={backTo} />
           </div>
           <span
             className="text-muted pointer my-3 mx-4"

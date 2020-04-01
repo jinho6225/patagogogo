@@ -31,7 +31,13 @@ class App extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(order)
-    });
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          cart: []
+        });
+      });
   }
 
   backTo() {

@@ -171,12 +171,23 @@ app.post('/api/orders', (req, res, next) => {
     });
     return;
   }
-  // console.log(req.body);
-  const { name, creditCard, shippingAddress } = req.body;
+  const {
+    fullName,
+    email,
+    phone,
+    creditCard,
+    expirationDate,
+    cvv,
+    shippingAddress
+  } = req.body;
   if (
-    name === undefined ||
-    creditCard === undefined ||
-    shippingAddress === undefined
+    fullName === null ||
+    email === null ||
+    phone === null ||
+    creditCard === null ||
+    expirationDate === null ||
+    cvv === null ||
+    shippingAddress === null
   ) {
     res.status(400).json({
       error: 'Pleas enter correct information'
@@ -185,14 +196,27 @@ app.post('/api/orders', (req, res, next) => {
   }
   const { cartId } = req.session;
   const sql = `insert into
-      "orders" ("cartId", "name", "creditCard", "shippingAddress")
-      values ($1, $2, $3, $4)
+      "orders" ("cartId", "fullName", "email", "phone", "creditCard", "expirationDate", "cvv", "shippingAddress")
+      values ($1, $2, $3, $4, $5, $6, $7, $8)
       returning *;
       `;
-  const params = [cartId, name, creditCard, shippingAddress];
+  const params = [
+    cartId,
+    fullName,
+    email,
+    phone,
+    creditCard,
+    expirationDate,
+    cvv,
+    shippingAddress
+  ];
   db.query(sql, params)
     .then(result => {
-      res.status(201).json(result.rows[0]);
+      res.status(201);
+      req.session.destroy(err => {
+        if (err) throw err;
+        res.json(result.rows[0]);
+      });
     })
     .catch(err => next(err));
 });
