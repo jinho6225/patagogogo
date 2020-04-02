@@ -18,7 +18,11 @@ const CheckoutForm = props => {
 
         <div className="row">
           <div className="col-md-12 slide-in">
-            <ValidationForm placeOrder={placeOrder} backTo={backTo} />
+            <ValidationForm
+              placeOrder={placeOrder}
+              backTo={backTo}
+              setView={setView}
+            />
           </div>
           <span
             className="text-muted pointer my-3 mx-4"

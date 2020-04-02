@@ -5,6 +5,7 @@ import ProductList from './product-list.jsx';
 import ProductDetails from './product-details.jsx';
 import CartSummary from './cart-summary.jsx';
 import CheckoutForm from './checkout-form.jsx';
+import Confirmation from './confirmation.jsx';
 
 class App extends Component {
   constructor() {
@@ -116,6 +117,8 @@ class App extends Component {
           placeOrder={this.placeOrder}
         />
       );
+    } else if (name === 'confirmation') {
+      return <Confirmation setView={this.setView} cart={cart} />;
     } else {
       return (
         <ProductDetails

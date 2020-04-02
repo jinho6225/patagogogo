@@ -104,6 +104,7 @@ class ValidationForm extends React.Component {
   }
 
   handleSubmit(event) {
+    const { setView } = this.props;
     event.preventDefault();
     const formValidation = JSON.parse(
       JSON.stringify(this.state.formValidation)
@@ -183,6 +184,7 @@ class ValidationForm extends React.Component {
         formValidation: formValidation
       });
     }
+    setView('confirmation', { productId: {} });
   }
 
   render() {

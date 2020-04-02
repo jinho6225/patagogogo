@@ -212,13 +212,22 @@ app.post('/api/orders', (req, res, next) => {
   ];
   db.query(sql, params)
     .then(result => {
-      res.status(201);
+      res.status(201).json(result.rows[0]);
       req.session.destroy(err => {
         if (err) throw err;
         res.json(result.rows[0]);
       });
     })
     .catch(err => next(err));
+});
+
+app.get('/api/cartItems', (req, res, next) => {
+  const sql = `select *
+  from "cartItems"
+  join "products" using ("productId")`;
+  db.query(sql).then(result => {
+    res.json(result.rows);
+  });
 });
 
 app.use('/api', (req, res, next) => {
