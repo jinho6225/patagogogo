@@ -194,3 +194,13 @@ select {
   height: 400px;
   padding: 1.25rem;
 }
+
+.category-img {
+  object-fit: contain;
+  height: 300px;
+  padding: 0.5rem;
+}
+
+.card-title {
+  text-align: center;
+}

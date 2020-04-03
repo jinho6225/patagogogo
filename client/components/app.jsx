@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header.jsx';
 import Footer from './footer.jsx';
+import MainPage from './main.jsx';
 import ProductList from './product-list.jsx';
 import ProductDetails from './product-details.jsx';
 import CartSummary from './cart-summary.jsx';
@@ -12,7 +13,7 @@ class App extends Component {
     super();
     this.state = {
       view: {
-        name: 'catalog',
+        name: 'main',
         params: {}
       },
       cart: []
@@ -98,6 +99,8 @@ class App extends Component {
     } = this.state;
     if (name === 'catalog') {
       return <ProductList setView={this.setView} />;
+    } else if (name === 'main') {
+      return <MainPage />;
     } else if (name === 'cart') {
       return (
         <CartSummary
