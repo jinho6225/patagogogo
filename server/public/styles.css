@@ -100,11 +100,11 @@ textarea {
 }
 
 .catalog-item {
-  height: 75vh;
+  height: 65vh;
 }
 
 .catalog-item img {
-  height: 75vh;
+  height: 65vh;
   object-fit: cover;
 }
 
