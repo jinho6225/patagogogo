@@ -35,8 +35,8 @@ a {
   color: #ffd79c;
 }
 
-.bgGray {
-  background-color: darkgrey;
+.bgBlack {
+  background-color: rgb(0, 0, 0);
 }
 
 .addBtn {
@@ -48,13 +48,8 @@ a {
 .removeBtn {
   background: #ffa5a5;
 }
-
-.catalog-hero {
-  background-image: linear-gradient(#2c1e1340, #6d512740),
-    url('./images/hero-beans.jpg');
-  background-position: center;
-  background-size: cover;
-  min-height: 60vh;
+.confirmBtn {
+  background: #8e5c98;
 }
 
 .content-div {
@@ -105,11 +100,11 @@ textarea {
 }
 
 .catalog-item {
-  height: 75vh;
+  height: 65vh;
 }
 
 .catalog-item img {
-  height: 75vh;
+  height: 65vh;
   object-fit: cover;
 }
 
@@ -198,4 +193,42 @@ select {
   object-fit: contain;
   height: 400px;
   padding: 1.25rem;
+}
+
+.category-img {
+  object-fit: contain;
+  height: 250px;
+  padding: 0.4rem;
+  border-radius: 15%;
+}
+
+.category {
+  border: #fff;
+  cursor: pointer;
+}
+.category:hover {
+  border: #fff;
+  cursor: pointer;
+  -webkit-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+  -o-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
+  -webkit-transform-origin: center center;
+  -moz-transform-origin: center center;
+  -o-transform-origin: center center;
+  -ms-transform-origin: center center;
+  transform-origin: center center;
+  -webkit-transition: all 4s ease-in;
+  -moz-transition: all 4s ease-in;
+  -o-transition: all 4s ease-in;
+  -ms-transition: all 4s ease-in;
+  transition: all 4s ease-in;
+}
+.section {
+  text-align: center;
+  margin: 0;
+  padding: 0.2rem;
+  background-color: rgb(191, 191, 191, 0.25);
+  opacity: 0.5;
 }

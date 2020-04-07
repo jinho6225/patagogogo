@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductListItem = props => {
+const TshirtListItem = (props) => {
   const { product, setView } = props;
 
   return (
@@ -23,4 +23,4 @@ const ProductListItem = props => {
     </div>
   );
 };
-export default ProductListItem;
+export default TshirtListItem;

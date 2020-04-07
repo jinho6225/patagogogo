@@ -28,7 +28,7 @@ function CartModal(props) {
           <div className="btn-group w-100">
             <button
               className="btn btn-light w-50"
-              onClick={() => setView('catalog', {})}
+              onClick={() => setView('main', {})}
             >
               Continue Shopping
             </button>

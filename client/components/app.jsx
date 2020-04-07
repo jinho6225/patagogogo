@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import Header from './header.jsx';
 import Footer from './footer.jsx';
-import ProductList from './product-list.jsx';
-import ProductDetails from './product-details.jsx';
+import MainPage from './main.jsx';
+import TshirtList from './tshirt-list.jsx';
+import PantsList from './pants-list.jsx';
+import SweaterList from './sweater-list.jsx';
+import ProductsDetails from './products-details.jsx';
 import CartSummary from './cart-summary.jsx';
 import CheckoutForm from './checkout-form.jsx';
+import Confirmation from './confirmation.jsx';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       view: {
-        name: 'catalog',
-        params: {}
+        name: 'main',
+        params: {},
       },
-      cart: []
+      cart: [],
+      orderConfirmArr: [],
     };
     this.setView = this.setView.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
@@ -22,38 +27,45 @@ class App extends Component {
     this.backTo = this.backTo.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
+    this.orderConfirm = this.orderConfirm.bind(this);
+  }
+
+  orderConfirm(cart) {
+    this.setState({
+      orderConfirmArr: cart,
+    });
   }
 
   placeOrder(order) {
     fetch('/api/orders', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(order)
+      body: JSON.stringify(order),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.setState({
-          cart: []
+          cart: [],
         });
       });
   }
 
   backTo() {
-    this.setView('catalog', {});
+    this.setView('main', {});
   }
 
   addToCart(productId, operator) {
     fetch('/api/cart', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ productId, operator })
+      body: JSON.stringify({ productId, operator }),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.getCartItems();
       });
   }
@@ -65,8 +77,8 @@ class App extends Component {
   removeCartItem(item) {
     const { cartItemId } = item;
     fetch(`/api/cart/${cartItemId}`, {
-      method: 'DELETE'
-    }).then(res => {
+      method: 'DELETE',
+    }).then((res) => {
       if (res.ok) {
         this.getCartItems();
       }
@@ -75,8 +87,8 @@ class App extends Component {
 
   getCartItems() {
     fetch('/api/cart')
-      .then(res => res.json())
-      .then(cart => {
+      .then((res) => res.json())
+      .then((cart) => {
         this.setState({ cart });
       });
   }
@@ -85,18 +97,25 @@ class App extends Component {
     this.setState({
       view: {
         name: name,
-        params: { productId: params.productId }
-      }
+        params: { productId: params.productId },
+      },
     });
   }
 
   page() {
     const {
       view: { name, params },
-      cart
+      cart,
+      orderConfirmArr,
     } = this.state;
-    if (name === 'catalog') {
-      return <ProductList setView={this.setView} />;
+    if (name === 'tshirt') {
+      return <TshirtList setView={this.setView} />;
+    } else if (name === 'sweater') {
+      return <SweaterList setView={this.setView} />;
+    } else if (name === 'pants') {
+      return <PantsList setView={this.setView} />;
+    } else if (name === 'main') {
+      return <MainPage setView={this.setView} />;
     } else if (name === 'cart') {
       return (
         <CartSummary
@@ -114,11 +133,20 @@ class App extends Component {
           cart={cart}
           setView={this.setView}
           placeOrder={this.placeOrder}
+          orderConfirm={this.orderConfirm}
+        />
+      );
+    } else if (name === 'confirmation') {
+      return (
+        <Confirmation
+          setView={this.setView}
+          orderConfirmArr={orderConfirmArr}
+          orderConfirm={this.orderConfirm}
         />
       );
     } else {
       return (
-        <ProductDetails
+        <ProductsDetails
           backTo={this.backTo}
           addToCart={this.addToCart}
           setView={this.setView}
