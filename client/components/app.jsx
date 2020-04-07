@@ -19,6 +19,7 @@ class App extends Component {
         params: {},
       },
       cart: [],
+      orderConfirmArr: [],
     };
     this.setView = this.setView.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
@@ -26,6 +27,13 @@ class App extends Component {
     this.backTo = this.backTo.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
+    this.orderConfirm = this.orderConfirm.bind(this);
+  }
+
+  orderConfirm(cart) {
+    this.setState({
+      orderConfirmArr: cart,
+    });
   }
 
   placeOrder(order) {
@@ -98,6 +106,7 @@ class App extends Component {
     const {
       view: { name, params },
       cart,
+      orderConfirmArr,
     } = this.state;
     if (name === 'tshirt') {
       return <TshirtList setView={this.setView} />;
@@ -124,10 +133,17 @@ class App extends Component {
           cart={cart}
           setView={this.setView}
           placeOrder={this.placeOrder}
+          orderConfirm={this.orderConfirm}
         />
       );
     } else if (name === 'confirmation') {
-      return <Confirmation setView={this.setView} cart={cart} />;
+      return (
+        <Confirmation
+          setView={this.setView}
+          orderConfirmArr={orderConfirmArr}
+          orderConfirm={this.orderConfirm}
+        />
+      );
     } else {
       return (
         <ProductsDetails

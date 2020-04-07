@@ -59,10 +59,7 @@ class ProductsDetails extends Component {
 
   render() {
     const { product } = this.state;
-    const {
-      setView,
-      params: { productId },
-    } = this.props;
+    const { setView } = this.props;
 
     if (product !== null) {
       return (
@@ -75,9 +72,9 @@ class ProductsDetails extends Component {
               <a
                 className="text-muted pointer mb-3"
                 onClick={() => {
-                  if (productId < 7) {
+                  if (product.productId < 7) {
                     setView('tshirt', { productId: {} });
-                  } else if (productId < 13) {
+                  } else if (product.productId < 13) {
                     setView('pants', { productId: {} });
                   } else {
                     setView('sweater', { productId: {} });

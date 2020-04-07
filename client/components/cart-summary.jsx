@@ -1,7 +1,7 @@
 import React from 'react';
 import CartSummaryItem from './cart-summary-item.jsx';
 
-const CartSummary = props => {
+const CartSummary = (props) => {
   const { cart, backTo, setView, removeCartItem, addToCart } = props;
   if (cart.length === 0) {
     return (
@@ -34,7 +34,7 @@ const CartSummary = props => {
             }}
           >
             {' '}
-            <i className="fas fa-chevron-circle-left "></i> Back to catalog
+            <i className="fas fa-chevron-circle-left "></i> Back to category
           </a>
           <h1 className="mb-3">My Cart</h1>
           {cart.map((item, i) => {

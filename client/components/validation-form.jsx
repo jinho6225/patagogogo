@@ -30,32 +30,13 @@ class ValidationForm extends React.Component {
         month: true,
         year: true,
         cvv: true,
-        terms: true
-      }
+        terms: true,
+      },
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.resetForm = this.resetForm.bind(this);
     this.regName = /^([a-zA-Z]){2,32} ?([a-zA-Z]){0,32}$/;
     this.regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
-  }
-
-  resetForm() {
-    this.setState({
-      fullName: '',
-      email: '',
-      phone: '',
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      creditCard: '',
-      month: '',
-      year: '',
-      cvv: '',
-      terms: false
-    });
   }
 
   handleChange(e) {
@@ -73,7 +54,7 @@ class ValidationForm extends React.Component {
       month: true,
       year: true,
       cvv: true,
-      terms: true
+      terms: true,
     };
 
     switch (name) {
@@ -111,7 +92,7 @@ class ValidationForm extends React.Component {
     );
 
     if (
-      !this.regName.test(this.state.fullName) ||
+      this.regName.test(this.state.fullName) === false ||
       this.state.fullName.length < 5
     ) {
       formValidation.fullName = false;
@@ -160,7 +141,6 @@ class ValidationForm extends React.Component {
     if (!this.state.terms) {
       formValidation.terms = false;
     }
-
     if (Object.values(formValidation).includes(false) === false) {
       const order = {
         fullName: this.state.fullName.trim(),
@@ -173,18 +153,19 @@ class ValidationForm extends React.Component {
           this.state.address2
         } \n${this.state.city.trim()}, ${this.state.state} ${
           this.state.zipCode
-        }`
+        }`,
       };
+      this.props.orderConfirm(this.props.cart);
       this.props.placeOrder(order);
+      setView('confirmation', { productId: {} });
     } else {
       this.setState({
         fullName: this.state.fullName.trim(),
         address1: this.state.address1.trim(),
         city: this.state.city.trim(),
-        formValidation: formValidation
+        formValidation: formValidation,
       });
     }
-    setView('confirmation', { productId: {} });
   }
 
   render() {

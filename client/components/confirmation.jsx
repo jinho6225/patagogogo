@@ -1,14 +1,14 @@
 import React from 'react';
 
 const Confirmation = (props) => {
-  const { cart, setView } = props;
+  const { orderConfirmArr, orderConfirm, setView } = props;
 
   return (
     <div className="container py-5">
       <h1 className="fade-in">Thank you for your order!</h1>
       <h3 className="fade-in">Your Order:</h3>
       <div>
-        {cart.map((item, i) => {
+        {orderConfirmArr.map((item, i) => {
           return (
             <div
               className="border rounded bg-white p-3 mb-3 d-flex fade-in"
@@ -30,7 +30,8 @@ const Confirmation = (props) => {
         <button
           className="btn text-white confirmBtn my-auto fade-in"
           onClick={() => {
-            setView('tshirt', {});
+            orderConfirm([]);
+            setView('main', {});
           }}
         >
           Continue Shopping

@@ -3,7 +3,7 @@ import Category from './category.jsx';
 import Catalog from './catalog.jsx';
 import IntroModal from './intro-modal.jsx';
 
-const MainPage = props => {
+const MainPage = (props) => {
   const [showObj, setShowObj] = useState({ show: true, displayNone: false });
 
   const toggleIntro = () => {

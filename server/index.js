@@ -67,14 +67,16 @@ app.get('/api/cart', (req, res, next) => {
         "c"."quantity",
         "p"."productId",
         "p"."image",
-        "p".name",
+        "p"."name",
         "p"."shortDescription"
         from "cartItems" as "c"
         join "products" as "p" using ("productId")
       where "c"."cartId" = $1`;
     const id = [cartId];
     db.query(sql, id)
-      .then((result) => res.status(200).json(result.rows))
+      .then((result) => {
+        res.status(200).json(result.rows);
+      })
       .catch((err) => next(err));
   }
 });
@@ -86,7 +88,7 @@ app.delete('/api/cart/:cartItemId', (req, res, next) => {
       error: 'cartItemId must be a positive integer',
     });
   }
-  const sql = 'delete from "cartItems" where "cartItemId" = $1 returnig *;';
+  const sql = 'delete from "cartItems" where "cartItemId" = $1 returning *;';
   const params = [cartItemId];
   db.query(sql, params)
     .then((result) => {
@@ -137,9 +139,9 @@ app.post('/api/cart', (req, res, next) => {
       return db.query(qry).then((result2) => {
         const resultArr = Array.from(result2.rows);
         if (resultArr.length !== 0) {
-          const sameProductId = resultArr.filter(
-            (result) => result.productId === productId
-          );
+          const sameProductId = resultArr.filter((result) => {
+            return result.productId === Number(productId);
+          });
           if (sameProductId.length !== 0) {
             const sql = `update "cartItems" set "quantity" =
                             quantity ${operator} $2 where "productId" = $1
@@ -173,7 +175,7 @@ app.post('/api/cart', (req, res, next) => {
         "p"."shortDescription"
         from "cartItems" as "c"
         join "products" as "p" using ("productId")
-        were "c"."cartItemId" = $1
+        where "c"."cartItemId" = $1
       `;
       const cartItemId = [result.rows[0].cartItemId];
       return db.query(sql, cartItemId).then((result) => {
@@ -230,7 +232,6 @@ app.post('/api/orders', (req, res, next) => {
   ];
   db.query(sql, params)
     .then((result) => {
-      res.status(201).json(result.rows[0]);
       req.session.destroy((err) => {
         if (err) throw err;
         res.json(result.rows[0]);
