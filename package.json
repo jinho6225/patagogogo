@@ -53,15 +53,15 @@
       }
     },
     "rules": {
+      "comma-dangle": [
+        "error",
+        "only-multiline"
+      ],
       "semi": [
         "error",
         "always"
       ],
       "padded-blocks": 0,
-      "arrow-parens": [
-        "error",
-        "as-needed"
-      ],
       "curly": [
         "error",
         "multi-line"

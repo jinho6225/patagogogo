@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import CartModal from './cart-modal';
 
-class ProductDetails extends Component {
+class TshirtDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       product: null,
       showModal: {
         show: false,
-        displayNone: true
-      }
+        displayNone: true,
+      },
     };
     this.getProductOne = this.getProductOne.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
@@ -17,29 +17,29 @@ class ProductDetails extends Component {
 
   toggleModal() {
     const {
-      showModal: { show }
+      showModal: { show },
     } = this.state;
     if (show) {
       this.setState({
         showModal: {
           show: false,
-          displayNone: false
-        }
+          displayNone: false,
+        },
       });
       setTimeout(() => {
         this.setState({
           showModal: {
             show: false,
-            displayNone: true
-          }
+            displayNone: true,
+          },
         });
       }, 1000);
     } else {
       this.setState({
         showModal: {
           show: true,
-          displayNone: false
-        }
+          displayNone: false,
+        },
       });
     }
   }
@@ -47,8 +47,8 @@ class ProductDetails extends Component {
   getProductOne() {
     const { params } = this.props;
     fetch(`api/products/${params.productId}`)
-      .then(res => res.json())
-      .then(product => {
+      .then((res) => res.json())
+      .then((product) => {
         this.setState({ product });
       });
   }
@@ -121,4 +121,4 @@ class ProductDetails extends Component {
   }
 }
 
-export default ProductDetails;
+export default TshirtDetails;

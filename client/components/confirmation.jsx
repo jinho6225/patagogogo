@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Confirmation = props => {
+const Confirmation = (props) => {
   const { cart, setView } = props;
 
   return (
@@ -30,7 +30,7 @@ const Confirmation = props => {
         <button
           className="btn text-white confirmBtn my-auto fade-in"
           onClick={() => {
-            setView('catalog', {});
+            setView('tshirt', {});
           }}
         >
           Continue Shopping

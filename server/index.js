@@ -12,14 +12,33 @@ app.use(express.json());
 
 app.get('/api/health-check', (req, res, next) => {
   db.query('select \'successfully connected\' as "message"')
-    .then(result => res.json(result.rows[0]))
-    .catch(err => next(err));
+    .then((result) => res.json(result.rows[0]))
+    .catch((err) => next(err));
 });
 
-app.get('/api/products', (req, res, next) => {
+app.get('/api/products1', (req, res, next) => {
   const sql =
     'select "productId", "name", "price", "image", "shortDescription" from products';
-  db.query(sql).then(result => res.json(result.rows));
+  db.query(sql).then((result) => {
+    const tshirt = result.rows.slice(0, 6);
+    res.json(tshirt);
+  });
+});
+app.get('/api/products2', (req, res, next) => {
+  const sql =
+    'select "productId", "name", "price", "image", "shortDescription" from products';
+  db.query(sql).then((result) => {
+    const tshirt = result.rows.slice(6, 12);
+    res.json(tshirt);
+  });
+});
+app.get('/api/products3', (req, res, next) => {
+  const sql =
+    'select "productId", "name", "price", "image", "shortDescription" from products';
+  db.query(sql).then((result) => {
+    const tshirt = result.rows.slice(12);
+    res.json(tshirt);
+  });
 });
 
 app.get('/api/products/:productId', (req, res, next) => {
@@ -27,14 +46,14 @@ app.get('/api/products/:productId', (req, res, next) => {
   const sql = 'select * from products where "productId" = $1;';
   const params = [productId];
   db.query(sql, params)
-    .then(result => {
+    .then((result) => {
       if (result.rows.length === 0) {
         next();
       } else {
         res.json(result.rows[0]);
       }
     })
-    .catch(err => next(err));
+    .catch((err) => next(err));
 });
 
 app.get('/api/cart', (req, res, next) => {
@@ -48,15 +67,15 @@ app.get('/api/cart', (req, res, next) => {
         "c"."quantity",
         "p"."productId",
         "p"."image",
-        "p"."name",
+        "p".name",
         "p"."shortDescription"
         from "cartItems" as "c"
         join "products" as "p" using ("productId")
       where "c"."cartId" = $1`;
     const id = [cartId];
     db.query(sql, id)
-      .then(result => res.status(200).json(result.rows))
-      .catch(err => next(err));
+      .then((result) => res.status(200).json(result.rows))
+      .catch((err) => next(err));
   }
 });
 
@@ -64,32 +83,32 @@ app.delete('/api/cart/:cartItemId', (req, res, next) => {
   const { cartItemId } = req.params;
   if (Number(cartItemId) <= 0) {
     return res.status(400).json({
-      error: 'cartItemId must be a positive integer'
+      error: 'cartItemId must be a positive integer',
     });
   }
-  const sql = 'delete from "cartItems" where "cartItemId" = $1 returning *;';
+  const sql = 'delete from "cartItems" where "cartItemId" = $1 returnig *;';
   const params = [cartItemId];
   db.query(sql, params)
-    .then(result => {
+    .then((result) => {
       if (result.rows.length === 0) {
         throw new ClientError('there are no rows in the query result', 400);
       } else {
         res.status(204).json(result.rows);
       }
     })
-    .catch(err => next(err));
+    .catch((err) => next(err));
 });
 
 app.post('/api/cart', (req, res, next) => {
   const { productId, operator } = req.body;
   if (Number(productId) <= 0) {
     return res.status(400).json({
-      error: 'productId must be a positive integer'
+      error: 'productId must be a positive integer',
     });
   }
   const id = [productId];
   db.query('select "price" from "products" where "productId" = $1', id)
-    .then(result1 => {
+    .then((result1) => {
       if (result1.rows.length === 0) {
         throw new ClientError('there are no rows in the query result', 400);
       } else {
@@ -98,7 +117,7 @@ app.post('/api/cart', (req, res, next) => {
             .query(
               'insert into "carts" ("cartId", "createdAt") values (default, default) returning "cartId"'
             )
-            .then(result2 => {
+            .then((result2) => {
               const obj = {};
               obj.price = result1.rows[0].price;
               obj.cartId = result2.rows[0].cartId;
@@ -112,14 +131,14 @@ app.post('/api/cart', (req, res, next) => {
         }
       }
     })
-    .then(result => {
+    .then((result) => {
       req.session.cartId = result.cartId;
       const qry = 'select * from "cartItems";';
-      return db.query(qry).then(result2 => {
+      return db.query(qry).then((result2) => {
         const resultArr = Array.from(result2.rows);
         if (resultArr.length !== 0) {
           const sameProductId = resultArr.filter(
-            result => result.productId === productId
+            (result) => result.productId === productId
           );
           if (sameProductId.length !== 0) {
             const sql = `update "cartItems" set "quantity" =
@@ -143,7 +162,7 @@ app.post('/api/cart', (req, res, next) => {
         }
       });
     })
-    .then(result => {
+    .then((result) => {
       const sql = `
         select "c"."cartItemId",
         "c"."price",
@@ -154,20 +173,20 @@ app.post('/api/cart', (req, res, next) => {
         "p"."shortDescription"
         from "cartItems" as "c"
         join "products" as "p" using ("productId")
-        where "c"."cartItemId" = $1
+        were "c"."cartItemId" = $1
       `;
       const cartItemId = [result.rows[0].cartItemId];
-      return db.query(sql, cartItemId).then(result => {
+      return db.query(sql, cartItemId).then((result) => {
         res.status(201).json(result.rows);
       });
     })
-    .catch(err => next(err));
+    .catch((err) => next(err));
 });
 
 app.post('/api/orders', (req, res, next) => {
   if (!req.session.cartId) {
     res.status(400).json({
-      error: 'there is not cardId'
+      error: 'there is not cardId',
     });
     return;
   }
@@ -178,7 +197,7 @@ app.post('/api/orders', (req, res, next) => {
     creditCard,
     expirationDate,
     cvv,
-    shippingAddress
+    shippingAddress,
   } = req.body;
   if (
     fullName === null ||
@@ -186,11 +205,10 @@ app.post('/api/orders', (req, res, next) => {
     phone === null ||
     creditCard === null ||
     expirationDate === null ||
-    cvv === null ||
-    shippingAddress === null
+    (cvv === null) | (shippingAddress === null)
   ) {
     res.status(400).json({
-      error: 'Pleas enter correct information'
+      error: 'Pleas enter correct information',
     });
     return;
   }
@@ -208,24 +226,24 @@ app.post('/api/orders', (req, res, next) => {
     creditCard,
     expirationDate,
     cvv,
-    shippingAddress
+    shippingAddress,
   ];
   db.query(sql, params)
-    .then(result => {
+    .then((result) => {
       res.status(201).json(result.rows[0]);
-      req.session.destroy(err => {
+      req.session.destroy((err) => {
         if (err) throw err;
         res.json(result.rows[0]);
       });
     })
-    .catch(err => next(err));
+    .catch((err) => next(err));
 });
 
 app.get('/api/cartItems', (req, res, next) => {
   const sql = `select *
   from "cartItems"
   join "products" using ("productId")`;
-  db.query(sql).then(result => {
+  db.query(sql).then((result) => {
     res.json(result.rows);
   });
 });
@@ -240,7 +258,7 @@ app.use((err, req, res, next) => {
   } else {
     console.error(err);
     res.status(500).json({
-      error: 'an unexpected error occurred'
+      error: 'an unexpected error occurred',
     });
   }
 });
