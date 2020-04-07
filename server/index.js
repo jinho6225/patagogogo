@@ -28,16 +28,16 @@ app.get('/api/products2', (req, res, next) => {
   const sql =
     'select "productId", "name", "price", "image", "shortDescription" from products';
   db.query(sql).then((result) => {
-    const tshirt = result.rows.slice(6, 12);
-    res.json(tshirt);
+    const pants = result.rows.slice(6, 12);
+    res.json(pants);
   });
 });
 app.get('/api/products3', (req, res, next) => {
   const sql =
     'select "productId", "name", "price", "image", "shortDescription" from products';
   db.query(sql).then((result) => {
-    const tshirt = result.rows.slice(12);
-    res.json(tshirt);
+    const sweater = result.rows.slice(12);
+    res.json(sweater);
   });
 });
 

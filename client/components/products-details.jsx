@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CartModal from './cart-modal';
 
-class TshirtDetails extends Component {
+class ProductsDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -59,6 +59,11 @@ class TshirtDetails extends Component {
 
   render() {
     const { product } = this.state;
+    const {
+      setView,
+      params: { productId },
+    } = this.props;
+
     if (product !== null) {
       return (
         <div className="container py-5">
@@ -70,7 +75,13 @@ class TshirtDetails extends Component {
               <a
                 className="text-muted pointer mb-3"
                 onClick={() => {
-                  this.props.backTo();
+                  if (productId < 7) {
+                    setView('tshirt', { productId: {} });
+                  } else if (productId < 13) {
+                    setView('pants', { productId: {} });
+                  } else {
+                    setView('sweater', { productId: {} });
+                  }
                 }}
               >
                 {' '}
@@ -121,4 +132,4 @@ class TshirtDetails extends Component {
   }
 }
 
-export default TshirtDetails;
+export default ProductsDetails;

@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Header = props => {
-  const { cart, setView, backTo } = props;
-  const itemsQuantity = cart.reduce((acc, cur) => {
-    return acc + cur.quantity;
-  }, 0);
+const Header = (props) => {
+  const { setView, backTo } = props;
+  // const itemsQuantity = cart.reduce((acc, cur) => {
+  //   return acc + cur.quantity;
+  // }, 0);
 
   return (
     <div className="bgBlack text-white sticky-top py-3">
@@ -23,7 +23,8 @@ const Header = props => {
             setView('cart', { productId: {} });
           }}
         >
-          {itemsQuantity} Items &nbsp;<i className="fas fa-shopping-cart"></i>
+          {/* {itemsQuantity}  */}
+          Items &nbsp;<i className="fas fa-shopping-cart"></i>
         </p>
       </div>
     </div>

@@ -5,7 +5,7 @@ import MainPage from './main.jsx';
 import TshirtList from './tshirt-list.jsx';
 import PantsList from './pants-list.jsx';
 import SweaterList from './sweater-list.jsx';
-import TshirtDetails from './tshirt-details.jsx';
+import ProductsDetails from './products-details.jsx';
 import CartSummary from './cart-summary.jsx';
 import CheckoutForm from './checkout-form.jsx';
 import Confirmation from './confirmation.jsx';
@@ -130,7 +130,7 @@ class App extends Component {
       return <Confirmation setView={this.setView} cart={cart} />;
     } else {
       return (
-        <TshirtDetails
+        <ProductsDetails
           backTo={this.backTo}
           addToCart={this.addToCart}
           setView={this.setView}
