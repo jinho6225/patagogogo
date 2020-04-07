@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   backTo() {
-    this.setView('catalog', {});
+    this.setView('main', {});
   }
 
   addToCart(productId, operator) {
@@ -100,7 +100,7 @@ class App extends Component {
     if (name === 'catalog') {
       return <ProductList setView={this.setView} />;
     } else if (name === 'main') {
-      return <MainPage />;
+      return <MainPage setView={this.setView} />;
     } else if (name === 'cart') {
       return (
         <CartSummary

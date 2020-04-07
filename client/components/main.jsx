@@ -3,7 +3,7 @@ import Category from './category.jsx';
 import Catalog from './catalog.jsx';
 import IntroModal from './intro-modal.jsx';
 
-const MainPage = () => {
+const MainPage = props => {
   const [showObj, setShowObj] = useState({ show: true, displayNone: false });
 
   const toggleIntro = () => {
@@ -18,7 +18,7 @@ const MainPage = () => {
       <Catalog />
       <div className="container py-3">
         <div className="card-deck d-flex">
-          <Category />
+          <Category setView={props.setView} />
         </div>
         <IntroModal showIntroModal={showObj} toggleIntro={toggleIntro} />
       </div>

@@ -197,28 +197,38 @@ select {
 
 .category-img {
   object-fit: contain;
-  height: 300px;
-  padding: 0.5rem;
+  height: 250px;
+  padding: 0.4rem;
+  border-radius: 15%;
 }
 
-.category-img:hover {
-  -webkit-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -o-transform: scale(1.5);
-  -ms-transform: scale(1.5);
-  transform: scale(1.5);
+.category {
+  border: #fff;
+  cursor: pointer;
+}
+.category:hover {
+  border: #fff;
+  cursor: pointer;
+  -webkit-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+  -o-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
   -webkit-transform-origin: center center;
   -moz-transform-origin: center center;
   -o-transform-origin: center center;
   -ms-transform-origin: center center;
   transform-origin: center center;
-  -webkit-transition: all 6s ease-in;
-  -moz-transition: all 6s ease-in;
-  -o-transition: all 6s ease-in;
-  -ms-transition: all 6s ease-in;
-  transition: all 6s ease-in;
+  -webkit-transition: all 4s ease-in;
+  -moz-transition: all 4s ease-in;
+  -o-transition: all 4s ease-in;
+  -ms-transition: all 4s ease-in;
+  transition: all 4s ease-in;
 }
-
-.card-title {
+.section {
   text-align: center;
+  margin: 0;
+  padding: 0.2rem;
+  background-color: rgb(191, 191, 191, 0.25);
+  opacity: 0.5;
 }
