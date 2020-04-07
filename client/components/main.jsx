@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Category from './category.jsx';
 import Catalog from './catalog.jsx';
+import IntroModal from './intro-modal.jsx';
 
 const MainPage = () => {
+  const [showObj, setShowObj] = useState({ show: true, displayNone: false });
+
+  const toggleIntro = () => {
+    setShowObj({ show: false, displayNone: false });
+    setTimeout(() => {
+      setShowObj({ show: false, displayNone: true });
+    }, 750);
+  };
+
   return (
     <>
       <Catalog />
@@ -10,6 +20,7 @@ const MainPage = () => {
         <div className="card-deck d-flex">
           <Category />
         </div>
+        <IntroModal showIntroModal={showObj} toggleIntro={toggleIntro} />
       </div>
     </>
   );
