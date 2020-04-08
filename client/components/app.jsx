@@ -19,6 +19,10 @@ class App extends Component {
         params: {},
       },
       cart: [],
+      showStatus: {
+        show: true,
+        displayNone: false,
+      },
       orderConfirmArr: [],
     };
     this.setView = this.setView.bind(this);
@@ -28,6 +32,24 @@ class App extends Component {
     this.placeOrder = this.placeOrder.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
     this.orderConfirm = this.orderConfirm.bind(this);
+    this.toggleIntro = this.toggleIntro.bind(this);
+  }
+
+  toggleIntro() {
+    this.setState({
+      showStatus: {
+        show: false,
+        displayNone: false,
+      },
+    });
+    setTimeout(() => {
+      this.setState({
+        showStatus: {
+          show: false,
+          displayNone: true,
+        },
+      });
+    }, 750);
   }
 
   orderConfirm(cart) {
@@ -107,6 +129,7 @@ class App extends Component {
       view: { name, params },
       cart,
       orderConfirmArr,
+      showStatus,
     } = this.state;
     if (name === 'tshirt') {
       return <TshirtList setView={this.setView} />;
@@ -115,7 +138,13 @@ class App extends Component {
     } else if (name === 'pants') {
       return <PantsList setView={this.setView} />;
     } else if (name === 'main') {
-      return <MainPage setView={this.setView} />;
+      return (
+        <MainPage
+          setView={this.setView}
+          showStatus={showStatus}
+          toggleIntro={this.toggleIntro}
+        />
+      );
     } else if (name === 'cart') {
       return (
         <CartSummary
