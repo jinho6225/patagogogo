@@ -1,4 +1,4 @@
-# patagogogo-sales-js
+# patagogogo-sales
 
 ## Description
 
