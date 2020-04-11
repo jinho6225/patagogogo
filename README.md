@@ -25,7 +25,11 @@ Try the application live at [https://patagogogo.jinho6225.com](https://patagogog
 - User can enter their purchase information
 
 # Preview
-![patagogogo.jinho6225.com](server/public/images/preview.mp4)
+![demo1](server/public/images/pata1.gif)
+![demo2](server/public/images/pata2.gif)
+![demo3](server/public/images/pata3.gif)
+![mobile demo](server/public/images/pata4.gif)
+
 
 ## Development
 
