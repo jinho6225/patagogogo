@@ -1,4 +1,4 @@
-# patagogogo-sales-js
+# patagogogo-sales
 
 ## Description
 A full stack Node.js and React.js E-commerce shopping cart app for fashion brand.
