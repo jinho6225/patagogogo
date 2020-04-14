@@ -146,7 +146,7 @@ CREATE TABLE public.orders (
     "cartId" integer NOT NULL,
     "fullName" text NOT NULL,
     email text NOT NULL,
-    phone integer NOT NULL,
+    phone bigint NOT NULL,
     "creditCard" text NOT NULL,
     "expirationDate" text NOT NULL,
     cvv integer NOT NULL,

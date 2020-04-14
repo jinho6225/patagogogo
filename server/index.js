@@ -215,6 +215,7 @@ app.post('/api/orders', (req, res, next) => {
     return;
   }
   const { cartId } = req.session;
+
   const sql = `insert into
       "orders" ("cartId", "fullName", "email", "phone", "creditCard", "expirationDate", "cvv", "shippingAddress")
       values ($1, $2, $3, $4, $5, $6, $7, $8)
