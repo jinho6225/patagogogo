@@ -3,7 +3,7 @@ import React from 'react';
 const Category = (props) => {
   const { setView } = props;
   return (
-    <div className="card-deck">
+    <>
       <div
         className="card category"
         onClick={() => {
@@ -52,7 +52,7 @@ const Category = (props) => {
         </h5>
         <img src="./images/pants.jpeg" className="category-img fade-in" />
       </div>
-    </div>
+    </>
   );
 };
 export default Category;

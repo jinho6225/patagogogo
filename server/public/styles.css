@@ -10,6 +10,10 @@ body {
   animation: fade-in 0.75s;
 }
 
+.image-fluid {
+  width: 300px;
+}
+
 .fade-in {
   animation: fade-in 1s;
   animation-fill-mode: forwards;
@@ -59,11 +63,6 @@ a {
 
 .pointer {
   cursor: pointer;
-}
-
-img {
-  width: 100%;
-  object-fit: contain;
 }
 
 .product-column {
@@ -191,7 +190,7 @@ select {
 
 .detail-img {
   object-fit: contain;
-  height: 400px;
+  height: 350px;
   padding: 1.25rem;
 }
 
@@ -219,11 +218,11 @@ select {
   -o-transform-origin: center center;
   -ms-transform-origin: center center;
   transform-origin: center center;
-  -webkit-transition: all 4s ease-in;
-  -moz-transition: all 4s ease-in;
-  -o-transition: all 4s ease-in;
-  -ms-transition: all 4s ease-in;
-  transition: all 4s ease-in;
+  -webkit-transition: all 2s ease-in;
+  -moz-transition: all 2s ease-in;
+  -o-transition: all 2s ease-in;
+  -ms-transition: all 2s ease-in;
+  transition: all 2s ease-in;
 }
 .section {
   text-align: center;
@@ -231,4 +230,8 @@ select {
   padding: 0.2rem;
   background-color: rgb(191, 191, 191, 0.25);
   opacity: 0.5;
+}
+
+.valid {
+  visibility: hidden;
 }

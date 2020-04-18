@@ -51,9 +51,17 @@ class CartSummaryItem extends Component {
         <div className="row border bg-white rounded p-3 position-relative item-card fade-in shadow">
           <div className="d-flex justify-content-between w-100 p-2">
             <h4 className="card-title">{item.name}</h4>
+            <h4 className="ml-2">
+              <i
+                className="far fa-times-circle cancel-button ml-auto"
+                onClick={() => {
+                  this.toggleModal();
+                }}
+              />
+            </h4>
           </div>
           <div
-            className="col-md-4 slide-in"
+            className="col-md-4 slide-in d-flex justify-content-center"
             onClick={() => {
               setView(item.name, item);
             }}
@@ -61,7 +69,7 @@ class CartSummaryItem extends Component {
             <img
               src={item.image}
               alt=""
-              className="object-fit-card pointer fade-in"
+              className="objectfit pointer fade-in"
             />
           </div>
 
