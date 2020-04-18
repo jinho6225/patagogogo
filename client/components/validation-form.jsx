@@ -37,6 +37,7 @@ class ValidationForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.regName = /^([a-zA-Z]){2,32} ?([a-zA-Z]){0,32}$/;
     this.regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
+    this.fullNameFn = this.fullNameFn.bind(this);
   }
 
   handleChange(e) {
@@ -168,6 +169,14 @@ class ValidationForm extends React.Component {
     }
   }
 
+  fullNameFn(fullName) {
+    if (fullName.length < 5 && fullName !== '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
     return (
       <form
@@ -193,8 +202,18 @@ class ValidationForm extends React.Component {
             value={this.state.fullName}
             minLength="5"
             maxLength="65"
+            onBlur={() => {
+              this.fullNameFn(this.state.fullName);
+            }}
+            required
           />
-          <div className="invalid-feedback">
+          <div
+            className={`${
+              this.state.formValidation.fullName
+                ? 'valid'
+                : 'is-invalid invalid-feedback'
+            }`}
+          >
             {this.state.fullName.length < 5 && this.state.fullName !== '' ? (
               <small>Minimum of five characters.</small>
             ) : (
@@ -216,8 +235,15 @@ class ValidationForm extends React.Component {
               value={this.state.phone}
               minLength="10"
               maxLength="11"
+              required
             />
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.phone
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               <small>Missing or invalid phone number.</small>
             </div>
           </div>
@@ -232,8 +258,15 @@ class ValidationForm extends React.Component {
               }`}
               minLength="6"
               maxLength="254"
+              required
             />
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.email
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               <small>Missing or invalid email address.</small>
             </div>
           </div>
@@ -250,8 +283,15 @@ class ValidationForm extends React.Component {
               className={`form-control ${
                 this.state.formValidation.address1 ? '' : 'is-invalid'
               }`}
+              required
             />
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.address1
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               {this.state.address1.length < 3 && this.state.address1 !== '' ? (
                 <small>Minimum of three characters.</small>
               ) : (
@@ -285,8 +325,15 @@ class ValidationForm extends React.Component {
               value={this.state.city}
               minLength="3"
               maxLength="50"
+              required
             />
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.city
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               {this.state.city.length < 3 && this.state.city !== '' ? (
                 <small>Minimum of three characters.</small>
               ) : (
@@ -301,6 +348,7 @@ class ValidationForm extends React.Component {
                 this.state.formValidation.state ? '' : 'is-invalid'
               }`}
               name="state"
+              required
             >
               <option defaultValue hidden></option>
               <option value="AL">Alabama</option>
@@ -355,7 +403,13 @@ class ValidationForm extends React.Component {
               <option value="WI">Wisconsin</option>
               <option value="WY">Wyoming</option>
             </select>
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.state
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               <small>Select a state.</small>
             </div>
           </div>
@@ -372,8 +426,15 @@ class ValidationForm extends React.Component {
               value={this.state.zipCode}
               minLength="5"
               maxLength="5"
+              required
             />
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.zipCode
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               <small>Missing or invalid zipcode.</small>
             </div>
           </div>
@@ -395,8 +456,15 @@ class ValidationForm extends React.Component {
               maxLength="16"
               onChange={() => this.handleChange(event)}
               value={this.state.creditCard}
+              required
             />
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.creditCard
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               <small>Missing or invalid credit card number.</small>
             </div>
           </div>
@@ -407,6 +475,7 @@ class ValidationForm extends React.Component {
                 this.state.formValidation.month ? '' : 'is-invalid'
               }`}
               name="month"
+              required
             >
               <option defaultValue hidden></option>
               <option value="01">01</option>
@@ -422,7 +491,13 @@ class ValidationForm extends React.Component {
               <option value="11">11</option>
               <option value="12">12</option>
             </select>
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.month
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               <small>Select a month.</small>
             </div>
           </div>
@@ -433,6 +508,7 @@ class ValidationForm extends React.Component {
                 this.state.formValidation.year ? '' : 'is-invalid'
               }`}
               name="year"
+              required
             >
               <option defaultValue hidden></option>
               <option value="2020">2020</option>
@@ -447,7 +523,13 @@ class ValidationForm extends React.Component {
               <option value="2029">2029</option>
               <option value="2030">2030</option>
             </select>
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.year
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               <small>Select a year.</small>
             </div>
           </div>
@@ -464,8 +546,15 @@ class ValidationForm extends React.Component {
               value={this.state.cvv}
               minLength="3"
               maxLength="4"
+              required
             />
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.cvv
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               <small>Missing or invalid CVV.</small>
             </div>
           </div>
@@ -479,6 +568,7 @@ class ValidationForm extends React.Component {
               name="terms"
               type="checkbox"
               id="gridCheck"
+              required
             />
             <label className="form-check-label" htmlFor="gridCheck">
               I accept that this website is for demonstration purposes, that no
@@ -486,7 +576,13 @@ class ValidationForm extends React.Component {
               such as names, addresses, or real credit card numbers should not
               be used on submission of this form.
             </label>
-            <div className="invalid-feedback">
+            <div
+              className={`${
+                this.state.formValidation.terms
+                  ? 'valid'
+                  : 'is-invalid invalid-feedback'
+              }`}
+            >
               <small>Terms are required.</small>
             </div>
           </div>

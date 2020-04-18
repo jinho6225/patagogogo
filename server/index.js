@@ -233,6 +233,11 @@ app.post('/api/orders', (req, res, next) => {
   ];
   db.query(sql, params)
     .then((result) => {
+      const sql = 'delete from "cartItems" where "cartId" = $1 returning *';
+      const params = [cartId];
+      db.query(sql, params).then((result) => {
+        res.status(200);
+      });
       req.session.destroy((err) => {
         if (err) throw err;
         res.json(result.rows[0]);

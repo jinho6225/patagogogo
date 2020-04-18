@@ -111,6 +111,7 @@ class App extends Component {
     fetch('/api/cart')
       .then((res) => res.json())
       .then((cart) => {
+        cart.sort((a, b) => a.productId - b.productId);
         this.setState({ cart });
       });
   }

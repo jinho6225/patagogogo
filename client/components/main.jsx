@@ -9,7 +9,7 @@ const MainPage = (props) => {
     <>
       <Catalog />
       <div className="container py-3">
-        <div className="card-deck d-flex">
+        <div className="card-deck d-flex justify-content-center">
           <Category setView={setView} />
         </div>
         <IntroModal showIntroModal={showStatus} toggleIntro={toggleIntro} />
