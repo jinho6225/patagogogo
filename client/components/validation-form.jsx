@@ -37,7 +37,6 @@ class ValidationForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.regName = /^([a-zA-Z]){2,32} ?([a-zA-Z]){0,32}$/;
     this.regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
-    this.fullNameFn = this.fullNameFn.bind(this);
   }
 
   handleChange(e) {
@@ -169,14 +168,6 @@ class ValidationForm extends React.Component {
     }
   }
 
-  fullNameFn(fullName) {
-    if (fullName.length < 5 && fullName !== '') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   render() {
     return (
       <form
@@ -203,7 +194,7 @@ class ValidationForm extends React.Component {
             minLength="5"
             maxLength="65"
             onBlur={() => {
-              this.fullNameFn(this.state.fullName);
+              this.handleSubmit(event);
             }}
             required
           />
@@ -235,6 +226,9 @@ class ValidationForm extends React.Component {
               value={this.state.phone}
               minLength="10"
               maxLength="11"
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             />
             <div
@@ -258,6 +252,9 @@ class ValidationForm extends React.Component {
               }`}
               minLength="6"
               maxLength="254"
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             />
             <div
@@ -283,6 +280,9 @@ class ValidationForm extends React.Component {
               className={`form-control ${
                 this.state.formValidation.address1 ? '' : 'is-invalid'
               }`}
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             />
             <div
@@ -325,6 +325,9 @@ class ValidationForm extends React.Component {
               value={this.state.city}
               minLength="3"
               maxLength="50"
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             />
             <div
@@ -348,6 +351,9 @@ class ValidationForm extends React.Component {
                 this.state.formValidation.state ? '' : 'is-invalid'
               }`}
               name="state"
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             >
               <option defaultValue hidden></option>
@@ -426,6 +432,9 @@ class ValidationForm extends React.Component {
               value={this.state.zipCode}
               minLength="5"
               maxLength="5"
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             />
             <div
@@ -456,6 +465,9 @@ class ValidationForm extends React.Component {
               maxLength="16"
               onChange={() => this.handleChange(event)}
               value={this.state.creditCard}
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             />
             <div
@@ -475,6 +487,9 @@ class ValidationForm extends React.Component {
                 this.state.formValidation.month ? '' : 'is-invalid'
               }`}
               name="month"
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             >
               <option defaultValue hidden></option>
@@ -508,6 +523,9 @@ class ValidationForm extends React.Component {
                 this.state.formValidation.year ? '' : 'is-invalid'
               }`}
               name="year"
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             >
               <option defaultValue hidden></option>
@@ -546,6 +564,9 @@ class ValidationForm extends React.Component {
               value={this.state.cvv}
               minLength="3"
               maxLength="4"
+              onBlur={() => {
+                this.handleSubmit(event);
+              }}
               required
             />
             <div
