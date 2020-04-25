@@ -35,6 +35,17 @@ class ValidationForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNameSubmit = this.handleNameSubmit.bind(this);
+    this.handlePhoneSubmit = this.handlePhoneSubmit.bind(this);
+    this.handleEmailSubmit = this.handleEmailSubmit.bind(this);
+    this.handleAddressSubmit = this.handleAddressSubmit.bind(this);
+    this.handleCitySubmit = this.handleCitySubmit.bind(this);
+    this.handleStateSubmit = this.handleStateSubmit.bind(this);
+    this.handleZipcodeSubmit = this.handleZipcodeSubmit.bind(this);
+    this.handleCreditCardSubmit = this.handleCreditCardSubmit.bind(this);
+    this.handleMonthSubmit = this.handleMonthSubmit.bind(this);
+    this.handleYearSubmit = this.handleYearSubmit.bind(this);
+    this.handleCvvSubmit = this.handleCvvSubmit.bind(this);
     this.regName = /^([a-zA-Z]){2,32} ?([a-zA-Z]){0,32}$/;
     this.regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,5}$/i;
   }
@@ -82,6 +93,180 @@ class ValidationForm extends React.Component {
     }
 
     this.setState({ formValidation });
+  }
+
+  handleNameSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+
+    if (
+      this.regName.test(this.state.fullName) === false ||
+      this.state.fullName.length < 5
+    ) {
+      formValidation.fullName = false;
+    }
+    if (this.state.formValidation.fullName === false) {
+      this.state.fullName.trim();
+    } else {
+      this.setState({
+        fullName: this.state.fullName.trim(),
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handlePhoneSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (this.state.phone.length < 10) {
+      formValidation.phone = false;
+    }
+    if (this.state.formValidation.phone !== false) {
+      this.setState({
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handleEmailSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (!this.regEmail.test(this.state.email)) {
+      formValidation.email = false;
+    }
+    if (this.state.formValidation.email !== false) {
+      this.setState({
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handleAddressSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (this.state.address1.length < 3) {
+      formValidation.address1 = false;
+    }
+    if (this.state.formValidation.address1 !== false) {
+      this.setState({
+        address1: this.state.address1.trim(),
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handleCitySubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (this.state.city.length < 3) {
+      formValidation.city = false;
+    }
+    if (this.state.formValidation.city !== false) {
+      this.setState({
+        city: this.state.city.trim(),
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handleStateSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (this.state.state.length < 2) {
+      formValidation.state = false;
+    }
+    if (this.state.formValidation.state !== false) {
+      this.setState({
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handleZipcodeSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (this.state.zipCode.length < 5) {
+      formValidation.zipCode = false;
+    }
+    if (this.state.formValidation.zipCode !== false) {
+      this.setState({
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handleCreditCardSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (this.state.creditCard.length < 16) {
+      formValidation.creditCard = false;
+    }
+    if (this.state.formValidation.creditCard !== false) {
+      this.setState({
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handleMonthSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (this.state.month.length < 2) {
+      formValidation.month = false;
+    }
+    if (this.state.formValidation.month !== false) {
+      this.setState({
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handleYearSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (this.state.year.length < 2) {
+      formValidation.year = false;
+    }
+    if (this.state.formValidation.year !== false) {
+      this.setState({
+        formValidation: formValidation,
+      });
+    }
+  }
+
+  handleCvvSubmit(event) {
+    event.preventDefault();
+    const formValidation = JSON.parse(
+      JSON.stringify(this.state.formValidation)
+    );
+    if (this.state.cvv.length < 3) {
+      formValidation.cvv = false;
+    }
+    if (this.state.formValidation.cvv !== false) {
+      this.setState({
+        formValidation: formValidation,
+      });
+    }
   }
 
   handleSubmit(event) {
@@ -194,7 +379,7 @@ class ValidationForm extends React.Component {
             minLength="5"
             maxLength="65"
             onBlur={() => {
-              this.handleSubmit(event);
+              this.handleNameSubmit(event);
             }}
             required
           />
@@ -227,7 +412,7 @@ class ValidationForm extends React.Component {
               minLength="10"
               maxLength="11"
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handlePhoneSubmit(event);
               }}
               required
             />
@@ -253,7 +438,7 @@ class ValidationForm extends React.Component {
               minLength="6"
               maxLength="254"
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handleEmailSubmit(event);
               }}
               required
             />
@@ -281,7 +466,7 @@ class ValidationForm extends React.Component {
                 this.state.formValidation.address1 ? '' : 'is-invalid'
               }`}
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handleAddressSubmit(event);
               }}
               required
             />
@@ -326,7 +511,7 @@ class ValidationForm extends React.Component {
               minLength="3"
               maxLength="50"
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handleCitySubmit(event);
               }}
               required
             />
@@ -352,7 +537,7 @@ class ValidationForm extends React.Component {
               }`}
               name="state"
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handleStateSubmit(event);
               }}
               required
             >
@@ -433,7 +618,7 @@ class ValidationForm extends React.Component {
               minLength="5"
               maxLength="5"
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handleZipcodeSubmit(event);
               }}
               required
             />
@@ -466,7 +651,7 @@ class ValidationForm extends React.Component {
               onChange={() => this.handleChange(event)}
               value={this.state.creditCard}
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handleCreditCardSubmit(event);
               }}
               required
             />
@@ -488,7 +673,7 @@ class ValidationForm extends React.Component {
               }`}
               name="month"
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handleMonthSubmit(event);
               }}
               required
             >
@@ -524,7 +709,7 @@ class ValidationForm extends React.Component {
               }`}
               name="year"
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handleYearSubmit(event);
               }}
               required
             >
@@ -565,7 +750,7 @@ class ValidationForm extends React.Component {
               minLength="3"
               maxLength="4"
               onBlur={() => {
-                this.handleSubmit(event);
+                this.handleCvvSubmit(event);
               }}
               required
             />
