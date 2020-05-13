@@ -142,7 +142,10 @@ app.post('/api/cart', (req, res, next) => {
           const sameProductId = resultArr.filter((result) => {
             return result.productId === Number(productId);
           });
-          if (sameProductId.length !== 0) {
+          if (
+            sameProductId.length !== 0 &&
+            sameProductId[0].cartId === req.session.cartId
+          ) {
             const sql = `update "cartItems" set "quantity" =
                             quantity ${operator} $2 where "productId" = $1
                             returning "cartItemId"`;
