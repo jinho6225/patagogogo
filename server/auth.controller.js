@@ -70,8 +70,19 @@ exports.localLogin = async (req, res) => {
 };
 
 exports.exists = async (req, res) => {
-  res.status(200).send('exists');
+  const { email } = req.params;
+  let account = null;
+  try {
+    account = await Account.findByEmail({ email });
+  } catch (e) {
+    console.error(e);
+  }
+
+  if (account.length !== 0) {
+    res.status(200).send('exists');
+  }
 };
+
 exports.logout = async (req, res) => {
   res.status(200).send('logout');
 };
