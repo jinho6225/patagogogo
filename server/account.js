@@ -9,11 +9,26 @@ function hash(password) {
 }
 
 const Account = {
+  findByEmail: async (req, res) => {
+    const { email } = req;
+    const qry = 'select * from "user" where "email" = $1';
+    const params = [email];
+    let duplication = null;
+    let existing = null;
+    try {
+      duplication = await db.query(qry, params);
+      existing = duplication.rows.filter((user) => user.email === email);
+    } catch (e) {
+      console.error(e);
+    }
+    return existing;
+  },
+
   registerLocal: async (req, res) => {
     const { email, pwd } = req;
     const qry =
       'insert into "user" ("email", "pwd", "createdAt") values ($1, $2, NOW()) returning *';
-    const params = [email, pwd];
+    const params = [email, hash(pwd)];
     let register = null;
     try {
       register = await db.query(qry, params);

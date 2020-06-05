@@ -16,6 +16,18 @@ exports.localRegister = async (req, res) => {
     return;
   }
 
+  let existing = null;
+  try {
+    existing = await Account.findByEmail({ email });
+  } catch (e) {
+    console.error(e);
+  }
+
+  if (existing.length !== 0) {
+    res.status(409).send(`${existing[0].email} already exist`);
+    return;
+  }
+
   let account = null;
   try {
     account = await Account.registerLocal({
