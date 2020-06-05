@@ -37,11 +37,19 @@ const Account = {
     }
     return register.rows[0];
   },
-  localLogin: async (req, res) => {},
 
-  validatePassword: function (pwd) {
+  validatePassword: async (req, res) => {
+    const { email, pwd } = req;
+    const qry = 'select * from "user" where "email" = $1';
+    const params = [email];
+    let checkPwd = null;
+    try {
+      checkPwd = await db.query(qry, params);
+    } catch (e) {
+      console.error(e);
+    }
     const hashed = hash(pwd);
-    return this.pwd === hashed;
+    return checkPwd.rows[0].pwd === hashed;
   },
 };
 
