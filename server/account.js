@@ -12,14 +12,15 @@ const Account = {
   registerLocal: async (req, res) => {
     const { email, pwd } = req;
     const qry =
-      'insert into user (email, pwd, submission_date) values (?, ?, NOW())';
+      'insert into "user" ("email", "pwd", "createdAt") values ($1, $2, NOW()) returning *';
+    const params = [email, pwd];
     let register = null;
     try {
-      register = await db.query(qry, [email, hash(pwd)]);
+      register = await db.query(qry, params);
     } catch (e) {
       console.error(e);
     }
-    return register.values[0];
+    return register.rows[0];
   },
   localLogin: async (req, res) => {},
 

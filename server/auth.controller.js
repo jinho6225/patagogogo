@@ -25,7 +25,7 @@ exports.localRegister = async (req, res) => {
   } catch (err) {
     console.error(err);
   }
-  res.status(200).send(`${account} register completed!`);
+  res.status(200).send(`${account.email} register completed!`);
 };
 
 exports.localLogin = async (req, res) => {
