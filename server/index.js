@@ -5,10 +5,12 @@ const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
 const sessionMiddleware = require('./session-middleware');
 const app = express();
+const auth = require('./auth.router.js');
 
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
 app.use(express.json());
+app.use('/auth', auth);
 
 app.get('/api/health-check', (req, res, next) => {
   db.query('select \'successfully connected\' as "message"')
