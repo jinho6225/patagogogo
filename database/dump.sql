@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
+-- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -324,7 +324,6 @@ ALTER TABLE ONLY public.products2 ALTER COLUMN "product2Id" SET DEFAULT nextval(
 --
 
 COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
-1	5	18	14900	5
 \.
 
 
@@ -333,11 +332,6 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 --
 
 COPY public.carts ("cartId", "createdAt") FROM stdin;
-1	2020-04-07 19:04:22.514306+00
-2	2020-04-07 19:12:04.013859+00
-3	2020-04-07 19:17:29.783896+00
-4	2020-04-07 19:21:13.192307+00
-5	2020-04-14 23:12:42.060206+00
 \.
 
 
@@ -346,7 +340,6 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 --
 
 COPY public.orders ("orderId", "cartId", "fullName", email, phone, "creditCard", "expirationDate", cvv, "shippingAddress", "createdAt") FROM stdin;
-18	5	hello world	jinho@jinho.jin	7145674657	2222333344445555	02/2021	3456	12345 jinho road \n \njinho, CA 34567	2020-04-14 23:13:30.475291+00
 \.
 
 
