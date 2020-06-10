@@ -334,7 +334,14 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 COPY public.carts ("cartId", "createdAt") FROM stdin;
 \.
 
-
+CREATE TABLE "user"
+(
+    "email" text,
+    "pwd" text,
+    "createdAt" timestamp(6)
+    with time zone DEFAULT now
+    () NOT NULL
+);
 --
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -497,4 +504,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
