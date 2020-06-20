@@ -27,7 +27,6 @@ exports.localRegister = async (req, res) => {
     res.status(409).send(`${existing[0].email} already exist`);
     return;
   }
-
   let account = null;
   try {
     account = await Account.registerLocal({

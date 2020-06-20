@@ -5,52 +5,37 @@ const Category = (props) => {
   return (
     <>
       <div
-        className="card category"
+        className=" category bgImg1"
         onClick={() => {
           setView('tshirt', { productId: {} });
         }}
       >
-        <h5
-          className="section slide-in"
-          onClick={() => {
-            setView('tshirt', { productId: {} });
-          }}
-        >
-          T-shirt <br /> shop now
-        </h5>
-        <img src="./images/t-shirt.jpeg" className="category-img fade-in" />
+        <div className="content">
+          <h1>T-Shirt</h1>
+          <span>SHOP NOW</span>
+        </div>
       </div>
       <div
-        className="card category"
+        className=" category bgImg2"
         onClick={() => {
           setView('sweater', { productId: {} });
         }}
       >
-        <h5
-          className="section slide-in"
-          onClick={() => {
-            setView('sweater', { productId: {} });
-          }}
-        >
-          Sweater <br /> shop now
-        </h5>
-        <img src="./images/sweater.jpeg" className="category-img fade-in" />
+        <div className="content">
+          <h1>Sweater</h1>
+          <span>SHOP NOW</span>
+        </div>
       </div>
       <div
-        className="card category"
+        className=" category bgImg3"
         onClick={() => {
           setView('pants', { productId: {} });
         }}
       >
-        <h5
-          className="section slide-in"
-          onClick={() => {
-            setView('pants', { productId: {} });
-          }}
-        >
-          Pants <br /> shop now
-        </h5>
-        <img src="./images/pants.jpeg" className="category-img fade-in" />
+        <div className="content">
+          <h1>Pants</h1>
+          <span>SHOP NOW</span>
+        </div>
       </div>
     </>
   );
