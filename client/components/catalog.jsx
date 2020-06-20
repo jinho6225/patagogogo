@@ -4,10 +4,10 @@ function Catalog() {
   const [index, setIndex] = useState(1);
   useEffect(() => {
     const id = setInterval(() => {
-      if (index <= 7) {
+      if (index <= 6) {
         setIndex(index + 1);
       } else {
-        setIndex(index - 8 + 1);
+        setIndex(index - 7 + 1);
       }
     }, 2500);
     return () => {

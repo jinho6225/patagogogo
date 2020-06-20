@@ -42,14 +42,14 @@ const Account = {
     const { email, pwd } = req;
     const qry = 'select * from "user" where "email" = $1';
     const params = [email];
-    let checkPwd = null;
+    let checkedPWD = null;
     try {
-      checkPwd = await db.query(qry, params);
+      checkedPWD = await db.query(qry, params);
     } catch (e) {
       console.error(e);
     }
     const hashed = hash(pwd);
-    return checkPwd.rows[0].pwd === hashed;
+    return checkedPWD.rows[0].pwd === hashed;
   },
 };
 

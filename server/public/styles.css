@@ -194,16 +194,59 @@ select {
   padding: 1.25rem;
 }
 
-.category-img {
+/* .category-img {
   object-fit: contain;
   height: 250px;
   padding: 0.4rem;
   border-radius: 15%;
-}
+} */
 
 .category {
   border: #fff;
   cursor: pointer;
+  object-fit: contain;
+  height: 250px;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1%;
+}
+
+.bgImg1 {
+  background-image: url('./images/t-shirt.jpeg');
+  background-repeat: no-repeat;
+  background-size: 250px 250px;
+  min-width: 230px;
+}
+
+.bgImg2 {
+  background-image: url('./images/sweater.jpeg');
+  background-repeat: no-repeat;
+  background-size: 250px 250px;
+  min-width: 230px;
+}
+
+.bgImg3 {
+  background-image: url('./images/pants.jpeg');
+  background-repeat: no-repeat;
+  background-size: 250px 250px;
+  min-width: 230px;
+}
+
+@media (max-width: 812px) {
+  .bgImg1 {
+    background-size: 200px 200px;
+    min-width: 200px;
+  }
+  .bgImg2 {
+    background-size: 200px 200px;
+    min-width: 200px;
+  }
+  .bgImg3 {
+    background-size: 200px 200px;
+    min-width: 200px;
+  }
 }
 
 .category:hover {
@@ -235,4 +278,27 @@ select {
 
 .valid {
   visibility: hidden;
+}
+
+.card-deck {
+  overflow: hidden;
+  align-items: center;
+}
+
+.content {
+  height: 90px;
+  padding: 0 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #aa3b3b;
+  background-color: #fff;
+  opacity: 0.5;
+  position: absolute;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    Helvetica, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ,
+    Meiryo, 'ＭＳ Ｐゴシック', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
 }
