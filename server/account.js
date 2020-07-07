@@ -1,5 +1,6 @@
 const db = require('./database');
 const crypto = require('crypto');
+const { generateToken } = require('./src/lib/token');
 
 function hash(password) {
   return crypto
@@ -50,6 +51,16 @@ const Account = {
     }
     const hashed = hash(pwd);
     return checkedPWD.rows[0].pwd === hashed;
+  },
+
+  generateToken: () => {
+    // JWT 에 담을 내용
+    const payload = {
+      _id: this._id,
+      profile: this.profile,
+    };
+
+    return generateToken(payload, 'account');
   },
 };
 
