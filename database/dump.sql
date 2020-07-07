@@ -1,10 +1,9 @@
-
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped from database version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -29,6 +28,7 @@ ALTER TABLE public.products ALTER COLUMN "productId" DROP DEFAULT;
 ALTER TABLE public.orders ALTER COLUMN "orderId" DROP DEFAULT;
 ALTER TABLE public.carts ALTER COLUMN "cartId" DROP DEFAULT;
 ALTER TABLE public."cartItems" ALTER COLUMN "cartItemId" DROP DEFAULT;
+DROP TABLE public."user";
 DROP SEQUENCE public."products_productId_seq";
 DROP SEQUENCE public."products2_product2Id_seq";
 DROP TABLE public.products2;
@@ -279,6 +279,17 @@ ALTER SEQUENCE public."products_productId_seq" OWNED BY public.products."product
 
 
 --
+-- Name: user; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."user" (
+    email text,
+    pwd text,
+    "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL
+);
+
+
+--
 -- Name: cartItems cartItemId; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -325,6 +336,11 @@ ALTER TABLE ONLY public.products2 ALTER COLUMN "product2Id" SET DEFAULT nextval(
 --
 
 COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
+49	22	1	3900	1
+50	22	12	6900	1
+51	25	4	3900	1
+52	25	12	6900	1
+53	25	1	3900	1
 \.
 
 
@@ -333,16 +349,16 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 --
 
 COPY public.carts ("cartId", "createdAt") FROM stdin;
+22	2020-05-13 05:19:55.156683+00
+23	2020-05-13 05:20:43.616725+00
+24	2020-05-13 05:22:20.033363+00
+25	2020-05-13 05:34:49.945997+00
+26	2020-06-10 18:30:58.425875+00
+27	2020-06-19 14:20:24.589398+00
+28	2020-07-07 22:31:19.422438+00
 \.
 
-CREATE TABLE "user"
-(
-    "email" text,
-    "pwd" text,
-    "createdAt" timestamp(6)
-    with time zone DEFAULT now
-    () NOT NULL
-);
+
 --
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -406,24 +422,33 @@ COPY public.products2 ("product2Id", name, price, image, "shortDescription", "lo
 
 
 --
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."user" (email, pwd, "createdAt") FROM stdin;
+jinho6225@hotmail.com	2da8a76b192867f33cba7dccfe2a3953c000d0e96dfbb2bdfdbd89abb9e75ee6	2020-06-19 14:29:10.707243+00
+\.
+
+
+--
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 1, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 62, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 5, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 28, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 18, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 27, true);
 
 
 --
@@ -505,3 +530,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+
