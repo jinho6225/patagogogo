@@ -262,7 +262,6 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 --
 
 COPY public.orders ("orderId", "cartId", "fullName", email, phone, "creditCard", "expirationDate", cvv, "shippingAddress", "createdAt") FROM stdin;
-28	29	asdfd	123asdf@ho.com	12312312312	1231231231231231	12/2030	231	1234 asdfasdf asdf \nasd \nasdfas, CA 11111	2020-07-08 09:42:19.957192+00
 \.
 
 
@@ -371,4 +370,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
