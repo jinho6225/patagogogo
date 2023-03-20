@@ -1,19 +1,40 @@
-const { Client } = require('pg');
+const { Pool, Client } = require('pg');
 
-const client = new Client({
-  user: 'root',
-  host: 'svc.sel3.cloudtype.app',
-  database: 'patagogodb',
-  password: 'root',
-  port: 31268,  
-});
+const credentials = {
+  user: "root",
+  host: "svc.sel3.cloudtype.app",
+  database: "patagogodb",
+  password: "root",
+  port: 31438,
+};
 
-// client.connect().then(() => {  
-//   client.query('SELECT NOW()', (err, res) => {
-//     console.log('connected db')
-//   });
-// });
-// svc.sel3.cloudtype.app:31268 
- 
+const db = new Client(credentials);
 
-module.exports = client;
+// Connect with a connection pool.
+async function poolDemo() {
+  const pool = new Pool(credentials);
+  const now = await pool.query("SELECT NOW()");
+  await pool.end();
+  return now;
+}
+
+// Connect with a client.
+async function clientDemo() {
+  const client = new Client(credentials);
+  await client.connect();
+  const now = await client.query("SELECT NOW()");
+  await client.end();
+  return now;
+}
+
+// Use a self-calling function so we can use async / await.
+
+(async () => {
+  const poolResult = await poolDemo();
+  console.log("Time with pool: " + poolResult.rows[0]["now"]);
+
+  const clientResult = await clientDemo();
+  console.log("Time with client: " + clientResult.rows[0]["now"]);
+})();
+
+module.exports = db;
