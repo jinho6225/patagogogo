@@ -1,6 +1,5 @@
 const { Client } = require('pg');
 
-const { Client } = require('pg')
 const client = new Client({
   user: 'root',
   host: 'svc.sel3.cloudtype.app',
