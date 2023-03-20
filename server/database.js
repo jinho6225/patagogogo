@@ -1,16 +1,21 @@
 const { Client } = require('pg');
 
-const db = new Client({
-  connectionString: process.env.DATABASE_URL,
+const { Client } = require('pg')
+const client = new Client({
+  user: 'root',
+  host: 'svc.sel3.cloudtype.app',
+  database: 'patagogodb',
+  password: 'root',
+  port: 31742,
   ssl: {
     rejectUnauthorized: false
   }
 });
 
-db.connect().then(() => {
-  db.query('SELECT NOW()', (err, res) => {
+client.connect().then(() => {
+  client.query('SELECT NOW()', (err, res) => {
     console.log('connected db')
   });
 });
 
-module.exports = db;
+module.exports = client;
