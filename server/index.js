@@ -7,7 +7,15 @@ const sessionMiddleware = require('./session-middleware');
 const app = express();
 const auth = require('./auth.router.js');
 
-console.log(db, 'db')
+try {
+  console.log(db.connect().then(() => {  
+    client.query('SELECT NOW()', (err, res) => {
+      console.log('connected db')
+    });
+  }), 'db')
+} catch (error) {
+  console.log(error, 'err')
+}
 
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
