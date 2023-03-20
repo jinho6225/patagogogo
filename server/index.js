@@ -7,6 +7,8 @@ const sessionMiddleware = require('./session-middleware');
 const app = express();
 const auth = require('./auth.router.js');
 
+console.log(db, 'db')
+
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
 app.use(express.json());
