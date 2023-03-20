@@ -7,7 +7,7 @@ const sessionMiddleware = require('./session-middleware');
 const app = express();
 const auth = require('./auth.router.js');
 
-console.log(db, 'db')
+console.log(db, 'db');
 
 app.use(staticMiddleware);
 app.use(sessionMiddleware);
@@ -29,13 +29,14 @@ app.get('/api/products1', (req, res, next) => {
   });
 });
 app.get('/api/products2', (req, res, next) => {
-  console.log('hit2 products2')
+  console.log('hit2 products2');
+  console.log(db, 'db');
   const sql =
     'select "productId", "name", "price", "image", "shortDescription" from products';
   db.query(sql).then((result) => {
-    console.log('sent query to DB for products2')
+    console.log('sent query to DB for products2');
     const pants = result.rows.slice(6, 12);
-    console.log(pants, 'results for pants')
+    console.log(pants, 'results for pants');
     res.json(pants);
   });
 });
