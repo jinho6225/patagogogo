@@ -2,10 +2,10 @@ const { Client } = require('pg');
 
 const client = new Client({
   user: 'root',
-  host: 'svc.sel3.cloudtype.app',
+  host: 'postgres',
   database: 'patagogodb',
   password: 'root',
-  port: 31742,  
+  port: 5432,  
 });
 
 // client.connect().then(() => {  
