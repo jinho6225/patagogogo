@@ -493,3 +493,15 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+
+
+INSERT INTO 
+    links (url, name)
+VALUES
+    ('https://www.google.com','Google'),
+    ('https://www.yahoo.com','Yahoo'),
+    ('https://www.bing.com','Bing');
+COPY public.products ("productId", name, price, image, "shortDescription", "longDescription") FROM stdin;
+
+
+insert into products ("productId", name, price, image, "shortDescription", "longDescription") values ('10', 'Patagonia Capilene Cool Trail Shirt - Men''s', '4500', '/images/Patagonia Capilene Cool Trail Shirt - Men''s.jpeg', 'hello', 'hello_world'), ('17', 'Patagonia Capilene Cool Trail Shirt - Men''s', '3900', '/images/Patagonia Capilene Cool Trail Shirt - Men''s.jpeg', 'hello', 'hello_world'), ('18', 'Patagonia Capilene Cool Trail Shirt - Men''s', '3900', '/images/Patagonia Capilene Cool Trail Shirt - Men''s.jpeg', 'hello', 'hello_world');
