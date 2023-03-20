@@ -9,7 +9,7 @@ const auth = require('./auth.router.js');
 
 try {
   console.log(db.connect().then(() => {  
-    client.query('SELECT NOW()', (err, res) => {
+    db.query('SELECT NOW()', (err, res) => {
       console.log('connected db')
     });
   }), 'db')

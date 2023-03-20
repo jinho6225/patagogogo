@@ -8,10 +8,10 @@ const client = new Client({
   port: 31742,  
 });
 
-client.connect().then(() => {  
-  client.query('SELECT NOW()', (err, res) => {
-    console.log('connected db')
-  });
-});
+// client.connect().then(() => {  
+//   client.query('SELECT NOW()', (err, res) => {
+//     console.log('connected db')
+//   });
+// });
 
 module.exports = client;
