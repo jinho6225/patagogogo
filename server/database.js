@@ -5,10 +5,7 @@ const client = new Client({
   host: 'svc.sel3.cloudtype.app',
   database: 'patagogodb',
   password: 'root',
-  port: 31742,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  port: 31742,  
 });
 
 client.connect().then(() => {
