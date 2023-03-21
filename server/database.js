@@ -9,7 +9,7 @@ const credentials = {
 };
 
 const db = new Client(credentials);
-
+console.log(db, 'db in database.js')
 // Connect with a connection pool.
 async function poolDemo() {
   const pool = new Pool(credentials);
