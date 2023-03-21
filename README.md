@@ -6,7 +6,7 @@ A full stack Node.js and React.js E-commerce shopping cart app for fashion brand
 
 ## Live Demo
 
-Try the application live at [https://patagogo.herokuapp.com/](https://patagogo.herokuapp.com/)
+Try the application live at [https://port-0-hello-meter-p8xrq2mlffai3lm.sel3.cloudtype.app/]([https://patagogo.herokuapp.com/](https://port-0-hello-meter-p8xrq2mlffai3lm.sel3.cloudtype.app/))
 
 ## Technologies Used
 
