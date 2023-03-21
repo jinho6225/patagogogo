@@ -1,7 +1,7 @@
 const pg = require('pg');
 
 const db = new pg.Pool({
-  host: 'postgresql',
+  host: "0.0.0.0",
   user: 'root',
   password: 'root',
   database: 'patagogodb',
